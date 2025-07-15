@@ -30,6 +30,7 @@ namespace MrX.EndlessSurvivor
         void Start()
         {
             m_state = SpawnState.COUNTING_DOWN;
+            StartNextWave();
         }
         void Update()
         {
@@ -154,7 +155,7 @@ namespace MrX.EndlessSurvivor
                 // Lấy Transform của điểm spawn ngẫu nhiên đó
                 Transform randomSpawnPoint = spawnPoints[randomIndex];
                 PoolManager.Ins.GetFromPool(name, randomSpawnPoint.position);
-                Debug.Log("Spawn");
+                // Debug.Log("Spawn");
                 yield return new WaitForSeconds(spawnInterval);
             }
             m_state = SpawnState.WAITING;

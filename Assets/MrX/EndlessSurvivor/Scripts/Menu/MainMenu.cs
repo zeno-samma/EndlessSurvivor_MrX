@@ -102,6 +102,14 @@ public class MainMenu : Panel
         try
         {
             await FriendsService.Instance.InitializeAsync();
+            // === KIỂM TRA QUAN TRỌNG ===
+            // Sau khi tác vụ nền hoàn thành, kiểm tra xem GameObject này có còn tồn tại không.
+            // Nếu người chơi đã chuyển sang scene khác, 'this' sẽ là null hoặc gameObject sẽ bị hủy.
+            if (this == null || !this.gameObject.activeInHierarchy)
+            {
+                // Nếu không còn tồn tại, thoát khỏi hàm ngay lập tức để tránh lỗi.
+                return;
+            }
             isFriendsServiceInitialized = true;
             friendsButton.interactable = true;
         }

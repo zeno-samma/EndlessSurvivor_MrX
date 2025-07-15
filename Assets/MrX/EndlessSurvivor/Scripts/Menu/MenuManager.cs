@@ -48,8 +48,9 @@ public class MenuManager : MonoBehaviour
 
     public async void StartClientService()
     {
+        // Debug.Log("Vào đây");
         PanelManager.CloseAll();
-        PanelManager.Open("loading");
+        // PanelManager.Open("loading");
         try
         {
             if (UnityServices.State != ServicesInitializationState.Initialized)
@@ -83,7 +84,7 @@ public class MenuManager : MonoBehaviour
 
     public async void SignInAnonymouslyAsync()
     {
-        PanelManager.Open("loading");
+        // PanelManager.Open("loading");
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -104,7 +105,7 @@ public class MenuManager : MonoBehaviour
 
     public async void SignInWithUsernameAndPasswordAsync(string username, string password)
     {
-        PanelManager.Open("loading");
+        // PanelManager.Open("loading");
         try
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
@@ -125,7 +126,7 @@ public class MenuManager : MonoBehaviour
 
     public async void SignUpWithUsernameAndPasswordAsync(string username, string password)
     {
-        PanelManager.Open("loading");
+        // PanelManager.Open("loading");
         try
         {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
@@ -173,7 +174,7 @@ public class MenuManager : MonoBehaviour
 
     private void ShowError(ErrorMenu.Action action = ErrorMenu.Action.None, string error = "", string button = "")
     {
-        PanelManager.Close("loading");
+        // PanelManager.Close("loading");
         ErrorMenu panel = (ErrorMenu)PanelManager.Get("error");
         panel.Open(action, error, button);
     }

@@ -8,7 +8,7 @@ namespace MrX.EndlessSurvivor
         private Stack<GameObject> stack = new Stack<GameObject>();
         private GameObject baseObj;
         private ReturnToMyPool returnPool;
-
+        // private Transform container; // Biến để lưu lại "thùng chứa"
         public MyPool(GameObject baseObj)
         {
             this.baseObj = baseObj;
@@ -16,9 +16,11 @@ namespace MrX.EndlessSurvivor
 
         public GameObject Get(bool activeValue, Vector3 postion)
         {
-            // Debug.Log(postion);
+
+            Debug.Log(postion);
             if (baseObj == null)
             {
+                Debug.Log("Null");
                 return null;
             }
             // KHAI BÁO 'tmp' NHƯ MỘT BIẾN CỤC BỘ
@@ -40,9 +42,12 @@ namespace MrX.EndlessSurvivor
             }
             // Debug.Log("Thêm mới");
             tmp = GameObject.Instantiate(baseObj, postion, Quaternion.identity);
+            // === DÒNG QUAN TRỌNG ===
+            // Đặt object mới vào làm con của "thùng chứa"
+            // tmp.transform.SetParent(container);
             returnPool = tmp.AddComponent<ReturnToMyPool>();
             returnPool.pool = this;
-            tmp.SetActive(activeValue); 
+            tmp.SetActive(activeValue);
             return tmp;
         }
         public void AddToPool(GameObject obj)

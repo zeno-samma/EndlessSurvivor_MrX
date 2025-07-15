@@ -22,6 +22,8 @@ namespace MrX.EndlessSurvivor
         // Dictionary để lưu trữ và truy cập các pool bằng tag
         private Dictionary<string, MyPool> pools;
 
+        public Transform poolContainer;
+
         void Awake()
         {
             // Singleton Pattern
@@ -33,6 +35,12 @@ namespace MrX.EndlessSurvivor
             else
             {
                 Ins = this;
+            }
+            if (poolContainer == null)
+            {
+                GameObject newContainer = new GameObject("_PoolContainer");
+                poolContainer = newContainer.transform;
+                DontDestroyOnLoad(newContainer);
             }
             // Debug.Log("================ POOL MANAGER AWAKE START ================");
             pools = new Dictionary<string, MyPool>();
@@ -50,6 +58,7 @@ namespace MrX.EndlessSurvivor
                 {
                     GameObject objToWarm = GameObject.Instantiate(config.prefab, Vector3.zero, Quaternion.identity);
                     objToWarm.SetActive(false);
+                    objToWarm.transform.SetParent(poolContainer); // === BỔ SUNG DÒNG NÀY ===
                     var returnComponent = objToWarm.GetComponent<ReturnToMyPool>();
                     if (returnComponent == null)
                     {

@@ -11,8 +11,10 @@ namespace MrX.EndlessSurvivor
         public static SceneLoader Instance { get; private set; }
         [Header("Loading Screen UI")]
         [SerializeField] private GameObject loadingScreenPanel; // Panel chứa toàn bộ màn hình chờ
+        [SerializeField] private GameObject panelBG;      // Bg
         [SerializeField] private Slider progressBar;            // Thanh Slider
         [SerializeField] private TextMeshProUGUI progressText;      // Text hiển thị %
+
         void Awake()
         {
             // Thiết lập Singleton
@@ -61,6 +63,7 @@ namespace MrX.EndlessSurvivor
 
             // 5. Ẩn màn hình chờ đi sau khi scene mới đã được kích hoạt hoàn toàn
             loadingScreenPanel.SetActive(false);
+            panelBG.SetActive(false);
         }
     }
 }

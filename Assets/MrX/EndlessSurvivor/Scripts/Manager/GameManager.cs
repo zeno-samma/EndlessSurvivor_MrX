@@ -94,7 +94,6 @@ namespace MrX.EndlessSurvivor
                     break;
                 case GameState.PLAYING:
                     Time.timeScale = 1f;
-
                     break;
                 case GameState.PAUSE:
                     Time.timeScale = 0f;
@@ -183,6 +182,7 @@ namespace MrX.EndlessSurvivor
         }
         public void PlayGame()///1.Sau khi ấn nút play
         {
+            SceneLoader.Instance.LoadScene("Gameplay");
             UpdateGameState(GameState.PLAYING);
             // ActivePlayer();
         }

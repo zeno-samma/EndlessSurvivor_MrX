@@ -4,6 +4,7 @@ namespace MrX.EndlessSurvivor
 {
     public class UIManager : MonoBehaviour
     {
+        // [SerializeField] public GameObject MainMenuPanel;
         private void OnEnable()
         {
 
@@ -39,7 +40,7 @@ namespace MrX.EndlessSurvivor
             switch (gameState.CurState)
             {
                 case GameManager.GameState.PREPAIR:
-                    // HomeGui.SetActive(true);
+                    // MainMenuPanel.SetActive(true);
                     break;
                 case GameManager.GameState.PLAYING:
                     // gameplayHUD.SetActive(true);
