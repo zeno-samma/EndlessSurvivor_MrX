@@ -3,6 +3,7 @@ using System.IO;
 using System;
 using Unity.Netcode;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace MrX.Name_Project
 {
@@ -56,6 +57,7 @@ namespace MrX.Name_Project
         }
         void Start()
         {
+            SceneManager.LoadScene("MainMenu");
             // Bắt đầu game bằng trạng thái khởi tạo
             UpdateGameState(GameState.PREPAIR);
         }
