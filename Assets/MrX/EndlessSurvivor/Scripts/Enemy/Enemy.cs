@@ -4,7 +4,7 @@ using MRX.DefenseGameV1;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class Enemy : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using System.Collections;
-using MrX.Name_Project;
+using MrX.EndlessSurvivor;
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class WaveSpawner : MonoBehaviour
     {

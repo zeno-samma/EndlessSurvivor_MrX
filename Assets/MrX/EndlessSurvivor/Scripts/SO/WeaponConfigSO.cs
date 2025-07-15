@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     [CreateAssetMenu(fileName = "WeaponConfig", menuName = "Survivor/Weapon Config")]
     public class WeaponConfigSO : ScriptableObject

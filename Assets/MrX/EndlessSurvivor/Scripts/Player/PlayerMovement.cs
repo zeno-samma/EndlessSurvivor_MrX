@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     [RequireComponent(typeof(Rigidbody2D))] // Đảm bảo đối tượng luôn có Rigidbody2D
     public class PlayerMovement : MonoBehaviour

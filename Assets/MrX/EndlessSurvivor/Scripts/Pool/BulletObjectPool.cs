@@ -2,7 +2,7 @@ using System;
 using MRX.DefenseGameV1;
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class BulletObjectPool : MonoBehaviour
     {

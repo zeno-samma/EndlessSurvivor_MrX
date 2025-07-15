@@ -6,7 +6,7 @@ using Unity.Services.Economy;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
 
 

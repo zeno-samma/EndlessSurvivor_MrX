@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     // Mục đích: Lưu trữ tất cả các ID liên quan đến Economy ở một nơi duy nhất.
     public class EconomyConst

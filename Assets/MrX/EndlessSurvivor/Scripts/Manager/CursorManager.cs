@@ -2,7 +2,7 @@ using System.Numerics;
 using UnityEngine;
 
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class CursorManager : MonoBehaviour
     {

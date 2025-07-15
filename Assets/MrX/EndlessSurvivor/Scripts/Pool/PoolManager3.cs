@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class PoolManager1 : MonoBehaviour
     {

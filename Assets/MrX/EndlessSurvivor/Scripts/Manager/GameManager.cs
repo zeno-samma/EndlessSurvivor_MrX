@@ -5,15 +5,15 @@ using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
 
     public class GameManager : MonoBehaviour
     {
         public static GameManager Ins;
         [SerializeField] private int currentScore;
-        private PlayerData playerData;
-        public PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
+        private PlayerData loadedPlayerData;
+        [SerializeField]private PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
         private string saveFilePath;
         private bool isDataDirty = false; // << "CỜ BẨN"
         public enum GameState//Giá trị mặc định của enum là đầu tiên.
@@ -28,13 +28,27 @@ namespace MrX.Name_Project
         public GameState CurrentState { get; private set; }
         private void OnEnable()
         {
+            EventBus.Subscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
             EventBus.Subscribe<PlayerDiedEvent>(GameOver);
         }
 
         private void OnDisable()
         {
+            EventBus.Unsubscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
             EventBus.Unsubscribe<PlayerDiedEvent>(GameOver);
         }
+        private void OnPlayerSpawned(PlayerSpawnedEvent value)
+        {
+            // Nhận Transform từ sự kiện và lưu lại
+            this.playerHealth = value.HealthComponent;
+            Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
+            if (playerHealth != null && loadedPlayerData != null)
+            {
+                Debug.Log("Ok");
+                this.playerHealth.ApplyLoadedData(loadedPlayerData);
+            }
+        }
+
         void Awake()
         {
             saveFilePath = Path.Combine(Application.persistentDataPath, "savedata.json");
@@ -48,7 +62,8 @@ namespace MrX.Name_Project
                 Ins = this;
                 DontDestroyOnLoad(gameObject); // Giữ GameManager tồn tại giữa các scene
             }
-            LoadGame();
+            // Chỉ đọc dữ liệu từ file và lưu lại, KHÔNG áp dụng cho player
+            LoadDataFromFile();
         }
         // Hàm công khai để các script khác có thể "báo hiệu" có thay đổi
         public void MarkDataAsDirty()
@@ -57,11 +72,12 @@ namespace MrX.Name_Project
         }
         void Start()
         {
-            SceneManager.LoadScene("MainMenu");
+            // SceneManager.LoadScene("MainMenu");
+            SceneLoader.Instance.LoadScene("MainMenu");
             // Bắt đầu game bằng trạng thái khởi tạo
             UpdateGameState(GameState.PREPAIR);
         }
-		
+
         public void UpdateGameState(GameState newState)
         {
             // Tránh gọi lại logic nếu không có gì thay đổi
@@ -78,7 +94,7 @@ namespace MrX.Name_Project
                     break;
                 case GameState.PLAYING:
                     Time.timeScale = 1f;
-																																					   
+
                     break;
                 case GameState.PAUSE:
                     Time.timeScale = 0f;
@@ -122,27 +138,26 @@ namespace MrX.Name_Project
             isDataDirty = false;
         }
 
-        public void LoadGame()
+        public void LoadDataFromFile()
         {
             if (File.Exists(saveFilePath))
             {
                 string json = File.ReadAllText(saveFilePath);
-                playerData = JsonUtility.FromJson<PlayerData>(json);
+                loadedPlayerData = JsonUtility.FromJson<PlayerData>(json);
 
                 // --- LOGIC SO SÁNH PHIÊN BẢN ---
-                if (playerData.version != Application.version)
+                if (loadedPlayerData.version != Application.version)
                 {
                     // Phiên bản của file save khác với phiên bản của game
                     // -> Đây là bản build mới -> Reset dữ liệu
-                    Debug.Log("Phát hiện phiên bản trò chơi mới (" + Application.version + "). Dữ liệu lưu cũ từ phiên bản " + playerData.version + " sẽ được đặt lại.");
+                    Debug.Log("Phát hiện phiên bản trò chơi mới (" + Application.version + "). Dữ liệu lưu cũ từ phiên bản " + loadedPlayerData.version + " sẽ được đặt lại.");
                     ResetAndCreateNewData();
                 }
                 else
                 {
                     // Cùng phiên bản, tải dữ liệu bình thường
-                    currentScore = playerData.gold;
-                    playerHealth.ApplyLoadedData(playerData);
-                    Debug.Log("Đã tải trò chơi từ phiên bản: " + playerData.version);
+                    currentScore = loadedPlayerData.gold;
+                    Debug.Log("Đã tải trò chơi từ phiên bản: " + loadedPlayerData.version);
                 }
             }
             else
@@ -197,58 +212,58 @@ namespace MrX.Name_Project
         // }
         public void GameOver(PlayerDiedEvent value)//							   
         {
-					
-            UpdateGameState(GameState.GAMEOVER);							 
+
+            UpdateGameState(GameState.GAMEOVER);
         }
 
-									  
-		 
-														 
-										   
-								  
 
-												  
-			 
-												
-				 
-												
-									
-				 
-			 
 
-							   
-			 
-																					  
-			 
-		 
 
-											   
-																					 
-		 
-												 
-																							  
-		 
 
-													 
-													
-		 
-											  
-			 
-										 
-																	 
-			 
-		 
 
-												  
-									   
-		 
-										   
-		 
 
-													 
-															   
-		 
-						   
-		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

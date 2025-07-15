@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     [RequireComponent(typeof(Image))]
     public class PlayerHealthUI : MonoBehaviour

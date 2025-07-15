@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Unity.Services.Economy;
 using Unity.Services.Economy.Model;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class EconomyManager : MonoBehaviour
     {

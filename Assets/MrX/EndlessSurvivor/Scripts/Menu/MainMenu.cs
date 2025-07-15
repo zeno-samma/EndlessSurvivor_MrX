@@ -6,7 +6,7 @@ using TMPro;
 using Unity.Services.Authentication;
 using UnityEngine.UI;
 using Unity.Services.Friends;
-using MrX.Name_Project;
+using MrX.EndlessSurvivor;
 
 public class MainMenu : Panel
 {

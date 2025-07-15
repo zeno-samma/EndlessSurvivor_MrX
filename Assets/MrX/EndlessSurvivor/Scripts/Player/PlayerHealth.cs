@@ -1,7 +1,7 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class PlayerHealth : MonoBehaviour
     {

@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class EnemyManager : MonoBehaviour
     {
@@ -10,7 +11,7 @@ namespace MrX.Name_Project
 
         // Thuộc tính để WaveSpawner có thể kiểm tra xem còn bao nhiêu địch
         public int ActiveEnemyCount => activeEnemies.Count;
-        public Transform playerTransform; // Kéo đối tượng Player vào đây
+        [SerializeField]private Transform playerTransform; // Kéo đối tượng Player vào đây
         void Awake()
         {
             // Singleton Pattern
@@ -23,6 +24,25 @@ namespace MrX.Name_Project
                 Ins = this;
             }
         }
+        void OnEnable()
+        {
+            // Đăng ký lắng nghe
+            EventBus.Subscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        void OnDisable()
+        {
+            // Hủy đăng ký để tránh lỗi
+            EventBus.Unsubscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnPlayerSpawned(PlayerSpawnedEvent value)
+        {
+            // Nhận Transform từ sự kiện và lưu lại
+            playerTransform = value.PlayerTransform;
+            // Debug.Log("EnemyManager đã nhận được vị trí của Player!");
+        }
+
         void Start()
         {
 

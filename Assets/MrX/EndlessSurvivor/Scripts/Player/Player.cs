@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MrX.Name_Project
+namespace MrX.EndlessSurvivor
 {
     public class Player : MonoBehaviour
     {
@@ -27,9 +27,19 @@ namespace MrX.Name_Project
             Health = GetComponent<PlayerHealth>();
             Weapon = GetComponentInChildren<WeaponManager>(); // Ví dụ nếu Weapon là con
         }
+        // Trong script Player.cs
+        void OnEnable()
+        {
+            // Thông báo cho toàn bộ hệ thống: "Tôi đã xuất hiện! Đây là Transform của tôi."
+            EventBus.Publish(new PlayerSpawnedEvent
+            {
+                PlayerTransform = this.transform,
+                HealthComponent = this.Health
+            });
+        }
         void Start()
         {
-            
+
         }
     }
 }
