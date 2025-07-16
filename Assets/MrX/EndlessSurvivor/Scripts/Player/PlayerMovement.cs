@@ -11,6 +11,8 @@ namespace MrX.EndlessSurvivor
         private Rigidbody2D rb; // Để xử lý vật lý
         private Animator m_anim;
         private Vector2 moveInput; // Để lưu trữ giá trị input (x, y)
+        private Camera mainCam;
+        private Vector3 mousePos;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
         {
@@ -20,7 +22,7 @@ namespace MrX.EndlessSurvivor
         }
         void Start()
         {
-
+            mainCam = Camera.main; // Lấy camera chính của game
         }
 
         // Update is called once per frame

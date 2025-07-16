@@ -58,7 +58,8 @@ namespace MrX.EndlessSurvivor
                 Vector3 direction = (playerTransform.position - enemy.transform.position).normalized;
 
                 // 2. Manager ra lệnh cho Enemy di chuyển theo hướng đó
-                enemy.Move(direction);
+                // Truy cập component Movement thông qua hub Enemy.cs
+                enemy.Movement.Move(direction);
             }
         }
         // Thay đổi kiểu tham số của hàm

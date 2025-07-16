@@ -14,6 +14,8 @@ namespace MrX.EndlessSurvivor
         public void SetDirection(Vector3 newDirection)
         {
             moveDirection = newDirection;
+            float angle = Mathf.Atan2(newDirection.y, newDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle); // Giả sử sprite của bạn hướng lên
         }
         // [SerializeField] private float timeDestroy = 0.25f;
 
@@ -43,7 +45,7 @@ namespace MrX.EndlessSurvivor
                 if (enemy != null)
                 {
                     // 4. Gọi thẳng hàm TakeDamage của chính con enemy đó
-                    enemy.TakeDamageEnemy(10);
+                    enemy.Health.TakeDamageEnemy(10);
                 }
                 gameObject.SetActive(false);
             }

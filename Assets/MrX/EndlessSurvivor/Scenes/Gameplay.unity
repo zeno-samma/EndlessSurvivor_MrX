@@ -158,10 +158,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2524045677826742971, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3837013149443479574, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -205,26 +201,6 @@ PrefabInstance:
     - target: {fileID: 5905452222306951888, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
       propertyPath: m_Name
       value: NinjaGreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 5905452222306951888, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6233920633526695605, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6431725233304163075, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7493140228401723975, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7614986841190795688, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
