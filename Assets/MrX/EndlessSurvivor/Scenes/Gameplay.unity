@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5859073114543160004, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5905452222306951888, guid: ec4c20bb972fc2441a20a3c7ef22b024, type: 3}
       propertyPath: m_Name
       value: NinjaGreen
