@@ -13,7 +13,7 @@ namespace MrX.EndlessSurvivor
         public static GameManager Ins;
         [SerializeField] private int currentScore;
         private PlayerData loadedPlayerData;
-        [SerializeField]private PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
+        [SerializeField] private PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
         private string saveFilePath;
         private bool isDataDirty = false; // << "CỜ BẨN"
         public enum GameState//Giá trị mặc định của enum là đầu tiên.
@@ -72,6 +72,8 @@ namespace MrX.EndlessSurvivor
         }
         void Start()
         {
+            // Khi game vừa bắt đầu, phát nhạc loading/menu
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMenuMusic);
             // SceneManager.LoadScene("MainMenu");
             SceneLoader.Instance.LoadScene("MainMenu");
             // Bắt đầu game bằng trạng thái khởi tạo
@@ -182,6 +184,9 @@ namespace MrX.EndlessSurvivor
         }
         public void PlayGame()///1.Sau khi ấn nút play
         {
+
+            // Khi vào màn chơi, đổi sang nhạc gameplay
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameplayMusic);
             SceneLoader.Instance.LoadScene("Gameplay");
             UpdateGameState(GameState.PLAYING);
             // ActivePlayer();

@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  desableDelay: 4
+  desableDelay: 3
 --- !u!95 &4608803236162649688
 Animator:
   serializedVersion: 7

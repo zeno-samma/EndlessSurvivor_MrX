@@ -13,7 +13,7 @@ namespace MrX.EndlessSurvivor
         public int minCoinBonus;
         public int maxCoinBonus;
         private Rigidbody2D m_rb;
-        private Animator m_anim;
+        // private Animator m_anim;
         private bool isDead;
         private Coroutine damageCoroutine;
 
@@ -38,7 +38,7 @@ namespace MrX.EndlessSurvivor
 
         private void Start()
         {
-            m_anim = GetComponent<Animator>();
+            // m_anim = GetComponent<Animator>();
             m_rb = GetComponent<Rigidbody2D>();
         }
         void OnTriggerEnter2D(Collider2D colTarget)

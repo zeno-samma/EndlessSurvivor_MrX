@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6701a70d1f8d2704d80fdcde93f56c6d, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  maxHealth: 100
+  initialMoveSpeed: 5
+  initialHealth: 100
+  initialDamage: 10
+  initialCooldown: 2
+  healthBonusPerLevel: 50
+  damageBonusPerLevel: 2
+  cooldownReductionPerLevel: 0.2

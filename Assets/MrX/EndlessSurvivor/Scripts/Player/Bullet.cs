@@ -17,7 +17,6 @@ namespace MrX.EndlessSurvivor
             float angle = Mathf.Atan2(newDirection.y, newDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle); // Giả sử sprite của bạn hướng lên
         }
-        // [SerializeField] private float timeDestroy = 0.25f;
 
         // Update is called once per frame
         void Update()
@@ -38,6 +37,8 @@ namespace MrX.EndlessSurvivor
         {
             if (colTaget.CompareTag(Const.ENEMY_TAG))
             {
+                // Khi game vừa bắt đầu, phát nhạc loading/menu
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletHitSFX);
                 // 2. Lấy script "Enemy" từ chính đối tượng vừa va chạm
                 Enemy enemy = colTaget.GetComponent<Enemy>();
 
