@@ -1,5 +1,6 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UniRx;
 
 namespace MrX.EndlessSurvivor
 {
@@ -10,7 +11,11 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private Image amountImage;
         // Dữ liệu động của người chơi
         private int healthLevel;
-        private float currentHealth;
+        // private float currentHealth;
+        // =========Unirx
+        // Vừa là biến lưu trữ, vừa là một dòng chảy sự kiện
+        public ReactiveProperty<float> CurrentHealth { get; private set; }
+        // =======================================
         // private float damageLevel;
         // private float cooldownLevel;
         // private int currentGold;
@@ -53,31 +58,34 @@ namespace MrX.EndlessSurvivor
         }
         void Start()
         {
-            currentHealth = MaxHealth;
+            // Khởi tạo ReactiveProperty với giá trị ban đầu là maxHealth
+            CurrentHealth = new ReactiveProperty<float>(MaxHealth);
+            // currentHealth = MaxHealth;
         }
 
-        public void TakeDamagePlayer(int damage)//Player nhận sát thương từ enemy
+        public void TakeDamagePlayer(float damage)//Player nhận sát thương từ enemy
         {
             // Đảm bảo máu không âm
-            if (currentHealth < 0)
+            if (CurrentHealth.Value < 0)
             {
-                currentHealth = 0;
+                CurrentHealth.Value = 0;
             }
             // Kiểm tra nếu đã chết
-            if (currentHealth == 0)
+            if (CurrentHealth.Value == 0)
             {
                 // int coinBonus = UnityEngine.Random.Range(minCoinBonus, maxCoinBonus);
                 Debug.Log("Phát event player chết");
                 // gameObject.SetActive(false);
-                EventBus.Publish(new PlayerDiedEvent {});
+                EventBus.Publish(new PlayerDiedEvent { });
                 return;
             }
             // Debug.Log("TakeDamage: " + damage);
             if (playerConfig.initialHealth <= 0) return; // Nếu đã chết rồi thì không nhận thêm sát thương
-            currentHealth -= damage;
+            // currentHealth -= damage;
+            CurrentHealth.Value -= damage;
             // Phát đi sự kiện với dữ liệu là tỉ lệ máu
-            float healthPercentage = currentHealth / MaxHealth;
-            EventBus.Publish(new PlayerHealthChangedEvent { NewHealthPercentage = healthPercentage });
+            // float healthPercentage = currentHealth / MaxHealth;
+            // EventBus.Publish(new PlayerHealthChangedEvent { NewHealthPercentage = healthPercentage });
             // Debug.Log($"currentHealth{currentHealth}");
         }
     }
