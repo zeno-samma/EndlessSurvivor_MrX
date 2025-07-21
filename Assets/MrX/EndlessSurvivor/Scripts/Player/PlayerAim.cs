@@ -10,16 +10,16 @@ namespace MrX.EndlessSurvivor
         // Update is called once per frame
         void Update()
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
+            // Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // mousePosition.z = 0;
 
-            // Tính toán hướng MỘT LẦN
-            Vector3 direction = (mousePosition - transform.position).normalized;
-            AimDirection = direction; // Lưu lại hướng cho các script khác dùng
+            // // Tính toán hướng MỘT LẦN
+            // Vector3 direction = (mousePosition - transform.position).normalized;
+            // AimDirection = direction; // Lưu lại hướng cho các script khác dùng
 
-            // Xoay Player
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle - 90f); // Giả sử sprite của bạn hướng lên
+            // // Xoay Player
+            // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // transform.rotation = Quaternion.Euler(0, 0, angle - 90f); // Giả sử sprite của bạn hướng lên
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6701a70d1f8d2704d80fdcde93f56c6d, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  initialMoveSpeed: 5
+  initialMoveSpeed: 3
   initialHealth: 100
   initialDamage: 10
   initialCooldown: 2

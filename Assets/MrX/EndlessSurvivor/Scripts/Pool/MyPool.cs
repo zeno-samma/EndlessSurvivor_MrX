@@ -17,7 +17,7 @@ namespace MrX.EndlessSurvivor
         public GameObject Get(bool activeValue, Vector3 postion)
         {
 
-            Debug.Log(postion);
+            // Debug.Log(postion);
             if (baseObj == null)
             {
                 Debug.Log("Null");

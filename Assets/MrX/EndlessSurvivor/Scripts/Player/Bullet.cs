@@ -6,7 +6,7 @@ namespace MrX.EndlessSurvivor
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 1;//
-        [SerializeField] private float desableDelay = 4f;
+        [SerializeField] private float desableDelay = 2f;
         private float timelast;
         private Vector3 moveDirection;
 

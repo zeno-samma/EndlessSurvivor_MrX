@@ -1,3 +1,5 @@
+using System;
+using System.Numerics;
 using UnityEngine;
 
 namespace MrX.EndlessSurvivor
@@ -5,7 +7,7 @@ namespace MrX.EndlessSurvivor
     public class WeaponManager : MonoBehaviour
     {
         private Camera mainCam;
-        private Vector3 mousePos;
+        // private Vector3 mousePos;
         [SerializeField] private GameObject bulletPrefabs;
         [SerializeField] private Transform firePos;
         [SerializeField] private float shotDelay = 0.15f;
@@ -29,14 +31,13 @@ namespace MrX.EndlessSurvivor
         // }
         void Update()
         {
-            Shoot();
-            Reload();
+            // Reload();
         }
-        void Shoot()
+        public void Shoot(UnityEngine.Vector3 currentTarget)
         {
             // Đọc hướng trực tiếp, không cần tính toán lại
-            Vector3 shootDirection = playerAim.AimDirection;
-            if (Input.GetMouseButtonDown(0) && currentAmo > 0 && Time.time > nextShot)
+            // Vector3 shootDirection = playerAim.AimDirection;
+            if (Time.time > nextShot)
             {
                 // Khi game vừa bắt đầu, phát nhạc loading/menu
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.shootSFX);
@@ -44,7 +45,7 @@ namespace MrX.EndlessSurvivor
                 GameObject bulletObj = PoolManager.Ins.GetFromPool("PlayerBullet", firePos.position);
                 Bullet bulletScript = bulletObj.GetComponent<Bullet>();
                 // 4. "Ra lệnh" cho viên đạn bay theo hướng đã tính
-                bulletScript.SetDirection(shootDirection);
+                bulletScript.SetDirection(currentTarget);
                 currentAmo--;
             }
         }
