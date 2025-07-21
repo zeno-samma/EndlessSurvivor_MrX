@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MrX/EndlessSurvivor/Scenes/Bootstrapper.unity
+    path: Assets/Scenes/Bootstrapper.unity
     guid: c81c6d03ac868cf4996101619f9ef338
   - enabled: 1
-    path: Assets/MrX/EndlessSurvivor/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: dca9c7d522442f64ab0679fe79548464
   - enabled: 1
-    path: Assets/MrX/EndlessSurvivor/Scenes/Gameplay.unity
+    path: Assets/Scenes/Gameplay.unity
     guid: 0cec56d242cb92a4cb21a40d5a7e96c2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
