@@ -35,6 +35,11 @@ namespace MrX.EndlessSurvivor
             // Debug.Log("Player data applied. Current Damage: " + CurrentDamage);
         }
 
+        void Awake()
+        {
+            // Khởi tạo ReactiveProperty với giá trị ban đầu là maxHealth
+            CurrentHealth = new ReactiveProperty<float>(MaxHealth);
+        }
         // Hàm này được GameManager gọi trước khi save game
         public PlayerData GetDataToSave()
         {

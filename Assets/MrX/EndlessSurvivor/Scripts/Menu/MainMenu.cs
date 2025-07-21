@@ -59,6 +59,7 @@ public class MainMenu : Panel
 
     private void Menu()
     {
+        // Debug.Log("OpenMenu");
         container.SetActive(true);
     }
 
