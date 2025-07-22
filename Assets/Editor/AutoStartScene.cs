@@ -7,6 +7,7 @@ using UnityEngine;
 public static class EditorStartSceneSetter
 {
     // Đường dẫn đến scene bạn muốn chạy đầu tiên
+    // private const string StartScenePath = "Assets/Scenes/DemoScene.unity";
     private const string StartScenePath = "Assets/Scenes/Bootstrapper.unity";
 
     static EditorStartSceneSetter()
