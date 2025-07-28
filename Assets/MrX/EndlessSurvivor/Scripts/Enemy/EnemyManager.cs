@@ -39,7 +39,7 @@ namespace MrX.EndlessSurvivor
         private void OnPlayerSpawned(PlayerSpawnedEvent value)
         {
             // Nhận Transform từ sự kiện và lưu lại
-            playerTransform = value.PlayerTransform;
+            playerTransform = value.playerObject.transform;
             // Debug.Log("EnemyManager đã nhận được vị trí của Player!");
         }
 

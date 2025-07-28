@@ -38,7 +38,7 @@ namespace MrX.EndlessSurvivor
             if (colTaget.CompareTag(Const.ENEMY_TAG))
             {
                 // Khi game vừa bắt đầu, phát nhạc loading/menu
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletHitSFX);
+                // AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletHitSFX);
                 // 2. Lấy script "Enemy" từ chính đối tượng vừa va chạm
                 Enemy enemy = colTaget.GetComponent<Enemy>();
 

@@ -33,8 +33,7 @@ namespace MrX.EndlessSurvivor
             // Thông báo cho toàn bộ hệ thống: "Tôi đã xuất hiện! Đây là Transform của tôi."
             EventBus.Publish(new PlayerSpawnedEvent
             {
-                PlayerTransform = this.transform,
-                HealthComponent = this.Health
+                playerObject = this.gameObject
             });
         }
         void Start()

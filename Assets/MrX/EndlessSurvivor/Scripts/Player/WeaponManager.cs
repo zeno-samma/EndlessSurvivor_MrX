@@ -40,7 +40,7 @@ namespace MrX.EndlessSurvivor
             if (Time.time > nextShot)
             {
                 // Khi game vừa bắt đầu, phát nhạc loading/menu
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.shootSFX);
+                // AudioManager.Instance.PlaySFX(AudioManager.Instance.shootSFX);
                 nextShot = Time.time + shotDelay;
                 GameObject bulletObj = PoolManager.Ins.GetFromPool("PlayerBullet", firePos.position);
                 Bullet bulletScript = bulletObj.GetComponent<Bullet>();

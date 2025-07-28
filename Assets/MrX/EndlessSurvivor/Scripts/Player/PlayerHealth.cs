@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UniRx;
 
@@ -8,7 +7,7 @@ namespace MrX.EndlessSurvivor
     {
         // === DỮ LIỆU ===
         public PlayerConfigSO playerConfig; //
-        [SerializeField] private Image amountImage;
+        // [SerializeField] private Image amountImage;
         // Dữ liệu động của người chơi
         private int healthLevel;
         // private float currentHealth;

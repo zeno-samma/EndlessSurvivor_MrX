@@ -55,12 +55,12 @@ namespace MrX.EndlessSurvivor
         }
         private void SpawnEnemiesState(StateUpdatedEvent Value)
         {
-            if (Value.CurState == GameManager.GameState.PLAYING)
+            if (Value.CurState == GameState.PLAYING)
             {
                 Debug.Log("GameStart...!");
                 StartNextWave();
             }
-            else if (Value.CurState == GameManager.GameState.GAMEOVER)
+            else if (Value.CurState == GameState.GAMEOVER)
             {
                 // Debug.Log("Vào đây");
                 StopAllCoroutines();

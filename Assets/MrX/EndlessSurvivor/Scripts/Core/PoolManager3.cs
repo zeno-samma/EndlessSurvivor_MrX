@@ -16,7 +16,7 @@ namespace MrX.EndlessSurvivor
         public List<GameObject> activeEnemies = new List<GameObject>();
         // private MyPool[] myEnemyPools; // Thêm dòng này
         // private MyPool[] myBulletPools; // Thêm dòng này
-        public Player player;
+        // public Player player;
         // private int i = 0;
         // private int j = 0;
         // ==============
@@ -39,7 +39,7 @@ namespace MrX.EndlessSurvivor
         // Start is called before the first frame update
         private void Start()
         {
-            player = GetComponent<Player>();
+            // player = GetComponent<Player>();
             // Đặt trạng thái ban đầu khi game bắt đầu
             m_state = SpawnState.COUNTING_DOWN;
             // =================Khởi tạo Enemy Pool================

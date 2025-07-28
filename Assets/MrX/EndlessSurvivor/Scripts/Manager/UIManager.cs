@@ -9,13 +9,13 @@ namespace MrX.EndlessSurvivor
         {
 
             // Đăng ký lắng nghe sự thay đổi trạng thái từ GameManager
-            EventBus.Subscribe<StateUpdatedEvent>(HandleGameStateChange);//Lắng nghe trạng thái game do gamemanager quản lý
+            // EventBus.Subscribe<StateUpdatedEvent>(HandleGameStateChange);//Lắng nghe trạng thái game do gamemanager quản lý
             EventBus.Subscribe<InitialUIDataReadyEvent>(OnInitialUIDataReadyEvent);//Lắng nghe sự kiện load dữ liệu ban đầu
         }
 
         private void OnDisable()
         {
-            EventBus.Unsubscribe<StateUpdatedEvent>(HandleGameStateChange);
+            // EventBus.Unsubscribe<StateUpdatedEvent>(HandleGameStateChange);
             EventBus.Unsubscribe<InitialUIDataReadyEvent>(OnInitialUIDataReadyEvent);
         }
         private void OnInitialUIDataReadyEvent(InitialUIDataReadyEvent value)//Cập nhật dữ liệu ban đầu lên ui
@@ -37,27 +37,27 @@ namespace MrX.EndlessSurvivor
             // HomeGui.SetActive(false);
 
             // Bật panel tương ứng với trạng thái mới
-            switch (gameState.CurState)
-            {
-                case GameManager.GameState.PREPAIR:
-                    // MainMenuPanel.SetActive(true);
-                    break;
-                case GameManager.GameState.PLAYING:
-                    // gameplayHUD.SetActive(true);
-                    break;
-                case GameManager.GameState.PAUSE:
-                    // pauseMenuPanel.SetActive(true);
-                    break;
-                case GameManager.GameState.UPGRADEPHASE:
-                    // gameplayHUD.SetActive(true);
-                    // upgradePanel.SetActive(true);
-                    break;
-                case GameManager.GameState.GAMEOVER:
-                    // Debug.Log("GAMEOVERUI");
-                    // gameplayHUD.SetActive(true);
-                    // gameOverPanel.SetActive(true);
-                    break;
-            }
+            // switch (gameState.CurState)
+            // {
+            //     // case GameManager.GameState.PREPAIR:
+            //     //     // MainMenuPanel.SetActive(true);
+            //     //     break;
+            //     // case GameManager.GameState.PLAYING:
+            //     //     // gameplayHUD.SetActive(true);
+            //     //     break;
+            //     // case GameManager.GameState.PAUSE:
+            //     //     // pauseMenuPanel.SetActive(true);
+            //     //     break;
+            //     // case GameManager.GameState.UPGRADEPHASE:
+            //     //     // gameplayHUD.SetActive(true);
+            //     //     // upgradePanel.SetActive(true);
+            //     //     break;
+            //     // case GameManager.GameState.GAMEOVER:
+            //     //     // Debug.Log("GAMEOVERUI");
+            //     //     // gameplayHUD.SetActive(true);
+            //     //     // gameOverPanel.SetActive(true);
+            //     //     break;
+            // }
         }
     }
 }

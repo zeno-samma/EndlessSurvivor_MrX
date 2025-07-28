@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.IO;
 using System;
-using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -16,15 +15,6 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
         private string saveFilePath;
         private bool isDataDirty = false; // << "CỜ BẨN"
-        public enum GameState//Giá trị mặc định của enum là đầu tiên.
-        {
-            NONE, //Rỗng
-            PREPAIR, //Đang chuẩn bị
-            PLAYING,      // Đang chơi
-            PAUSE,       // Dừng game
-            UPGRADEPHASE,//Nâng cấp.
-            GAMEOVER  // Thua cuộc
-        }
         public GameState CurrentState { get; private set; }
         private void OnEnable()
         {
@@ -40,7 +30,7 @@ namespace MrX.EndlessSurvivor
         private void OnPlayerSpawned(PlayerSpawnedEvent value)
         {
             // Nhận Transform từ sự kiện và lưu lại
-            this.playerHealth = value.HealthComponent;
+            this.playerHealth = value.playerObject.GetComponent<PlayerHealth>();
             Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
             if (playerHealth != null && loadedPlayerData != null)
             {

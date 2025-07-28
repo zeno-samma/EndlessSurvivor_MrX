@@ -49,32 +49,32 @@ namespace MrX.EndlessSurvivor
                 // m_anim.SetBool(Const.ATTACK_ANIM, true);
                 // Debug.Log("Va chạm");
                 // 2. Lấy script "Enemy" từ chính đối tượng vừa va chạm
-                PlayerHealth playerHealth = colTarget.GetComponentInChildren<PlayerHealth>();
+                // PlayerHealth playerHealth = colTarget.GetComponentInChildren<PlayerHealth>();
 
-                // 3. Kiểm tra để chắc chắn là đã lấy được script (tránh lỗi null)
-                if (playerHealth != null)
-                {
-                    // Bắt đầu coroutine và truyền "player" vào,
-                    // đồng thời lưu lại coroutine này vào biến damageCoroutine
-                    // Debug.Log("playerHealth");
-                    damageCoroutine = StartCoroutine(TakeDamage(playerHealth));
-                }
+                // // 3. Kiểm tra để chắc chắn là đã lấy được script (tránh lỗi null)
+                // if (playerHealth != null)
+                // {
+                //     // Bắt đầu coroutine và truyền "player" vào,
+                //     // đồng thời lưu lại coroutine này vào biến damageCoroutine
+                //     // Debug.Log("playerHealth");
+                //     damageCoroutine = StartCoroutine(TakeDamage(playerHealth));
+                // }
             }
         }
-        private IEnumerator TakeDamage(PlayerHealth playerToDamage) // Gây sát thương cho người chơi
-        {
-            while (true) // Dùng vòng lặp để gây sát thương liên tục
-            {
-                if (playerToDamage != null)
-                {
-                    playerToDamage.TakeDamagePlayer(10); // Gây sát thương cho player đã truyền vào
-                    // Debug.Log("Tiếp tục gây sát thương lên người chơi!");
-                }
+        // private IEnumerator TakeDamage(PlayerHealth playerToDamage) // Gây sát thương cho người chơi
+        // {
+        //     while (true) // Dùng vòng lặp để gây sát thương liên tục
+        //     {
+        //         if (playerToDamage != null)
+        //         {
+        //             playerToDamage.TakeDamagePlayer(10); // Gây sát thương cho player đã truyền vào
+        //             // Debug.Log("Tiếp tục gây sát thương lên người chơi!");
+        //         }
 
-                // Chờ 1 giây rồi lặp lại
-                yield return new WaitForSeconds(1f);
-            }
-        }
+        //         // Chờ 1 giây rồi lặp lại
+        //         yield return new WaitForSeconds(1f);
+        //     }
+        // }
         void OnTriggerExit2D(Collider2D colTarget)
         {
             if (IsComponentNull() || isDead) return;
