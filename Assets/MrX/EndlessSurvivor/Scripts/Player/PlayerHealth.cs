@@ -3,7 +3,7 @@ using UniRx;
 
 namespace MrX.EndlessSurvivor
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour, IDamageable
     {
         // === DỮ LIỆU ===
         public PlayerConfigSO playerConfig; //
@@ -67,7 +67,7 @@ namespace MrX.EndlessSurvivor
             // currentHealth = MaxHealth;
         }
 
-        public void TakeDamagePlayer(float damage)//Player nhận sát thương từ enemy
+        public void TakeDamage(float damage)//Player nhận sát thương từ enemy
         {
             // Đảm bảo máu không âm
             if (CurrentHealth.Value < 0)

@@ -1,5 +1,4 @@
 using System;
-using MRX.DefenseGameV1;
 using UnityEngine;
 
 namespace MrX.EndlessSurvivor
@@ -70,12 +69,12 @@ namespace MrX.EndlessSurvivor
         {
             if (IsComponentNull() || isDead) return;
             // Debug.Log("colTarget" + colTarget.gameObject.name);
-            if (colTarget.gameObject.CompareTag(Const.PLAYER_TAG) && !isDead)//So sánh va chạm tag player
-            {
-                m_canMove = false;
-                // m_anim.SetBool(Const.ATTACK_ANIM, true);
+            // if (colTarget.gameObject.CompareTag(Const.PLAYER_TAG) && !isDead)//So sánh va chạm tag player
+            // {
+            //     m_canMove = false;
+            //     // m_anim.SetBool(Const.ATTACK_ANIM, true);
 
-            }
+            // }
         }
         /// Trả về tỷ lệ máu hiện tại (từ 0.0 đến 1.0).
         public float GetHealthPercentage()

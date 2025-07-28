@@ -1,4 +1,3 @@
-using MRX.DefenseGameV1;
 using UnityEngine;
 
 namespace MrX.EndlessSurvivor
@@ -35,7 +34,7 @@ namespace MrX.EndlessSurvivor
         }
         void OnTriggerEnter2D(Collider2D colTaget)
         {
-            if (colTaget.CompareTag(Const.ENEMY_TAG))
+            if (colTaget.CompareTag("Enemy"))
             {
                 // Khi game vừa bắt đầu, phát nhạc loading/menu
                 // AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletHitSFX);
