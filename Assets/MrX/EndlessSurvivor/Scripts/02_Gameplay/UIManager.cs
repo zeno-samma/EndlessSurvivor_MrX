@@ -4,6 +4,7 @@ namespace MrX.EndlessSurvivor
 {
     public class UIManager : MonoBehaviour
     {
+        // test tốc độc asmdef;
         // [SerializeField] public GameObject MainMenuPanel;
         private void OnEnable()
         {

@@ -48,41 +48,39 @@ namespace MrX.EndlessSurvivor
                 // weaponAim.AimAt(currentTarget);
                 weaponManager.Shoot(direction);
                 // Debug.Log("Tấn công");
-            }else if (currentTarget == null)
+            }
+            else if (currentTarget == null)
             {
-                transform.rotation = Quaternion.Euler(0,0,0); // Giả sử sprite của bạn hướng lên
+                transform.rotation = Quaternion.Euler(0, 0, 0); // Giả sử sprite của bạn hướng lên
             }
         }
 
         void FindClosestEnemy()
         {
-            // Lấy danh sách địch từ "Tổng Chỉ Huy"
-            List<Enemy> activeEnemies = EnemyManager.Ins.activeEnemies;
+            // Tự tìm tất cả các GameObject đang hoạt động có tag "Enemy"
+            GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
-            if (activeEnemies.Count == 0)
+            if (enemyObjects.Length == 0)
             {
                 currentTarget = null;
                 return;
             }
 
-            Enemy closestEnemy = null;
-            float minDistance = 5f;//Khoảng cách
+            Transform closestTarget = null;
+            float minDistance = 5f; // Khoảng cách quét tối đa
 
-            // Duyệt qua danh sách để tìm con gần nhất
-            foreach (Enemy enemy in activeEnemies)
+            // Duyệt qua mảng các đối tượng tìm được
+            foreach (GameObject enemyObject in enemyObjects)
             {
-                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                float distance = Vector3.Distance(transform.position, enemyObject.transform.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    closestEnemy = enemy;
+                    closestTarget = enemyObject.transform;
                 }
             }
 
-            if (closestEnemy != null)
-            {
-                currentTarget = closestEnemy.transform;
-            }
+            currentTarget = closestTarget;
         }
     }
 }

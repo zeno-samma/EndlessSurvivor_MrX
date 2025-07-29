@@ -11,7 +11,7 @@ namespace MrX.EndlessSurvivor
 
         // Thuộc tính để WaveSpawner có thể kiểm tra xem còn bao nhiêu địch
         public int ActiveEnemyCount => activeEnemies.Count;
-        [SerializeField]private Transform playerTransform; // Kéo đối tượng Player vào đây
+        [SerializeField] private Transform playerTransform; // Kéo đối tượng Player vào đây
         void Awake()
         {
             // Singleton Pattern
@@ -28,12 +28,26 @@ namespace MrX.EndlessSurvivor
         {
             // Đăng ký lắng nghe
             EventBus.Subscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventBus.Subscribe<EnemyDiedEvent>(OnEnemyDied); // << THÊM DÒNG NÀY
         }
 
         void OnDisable()
         {
             // Hủy đăng ký để tránh lỗi
             EventBus.Unsubscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventBus.Unsubscribe<EnemyDiedEvent>(OnEnemyDied); // << THÊM DÒNG NÀY
+        }
+
+        private void OnEnemyDied(EnemyDiedEvent eventData)
+        {
+            if (eventData.deadEnemyObject != null)
+            {
+                Enemy enemyScript = eventData.deadEnemyObject.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    UnregisterEnemy(enemyScript);
+                }
+            }
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent value)

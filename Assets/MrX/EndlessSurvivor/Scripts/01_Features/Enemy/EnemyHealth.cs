@@ -110,7 +110,7 @@ namespace MrX.EndlessSurvivor
             {
                 currentHealth = 0;
                 int coinBonus = UnityEngine.Random.Range(minCoinBonus, maxCoinBonus);
-                EventBus.Publish(new EnemyDiedEvent { diecoin = coinBonus });
+                EventBus.Publish(new EnemyDiedEvent { diecoin = coinBonus,deadEnemyObject = this.gameObject });
                 // Debug.Log("Chết");
                 gameObject.SetActive(false);
             }

@@ -24,7 +24,7 @@ namespace MrX.EndlessSurvivor
 
     public struct StateUpdatedEvent
     {
-        public GameState  CurState;
+        public GameState CurState;
     }
     public struct PlayerHealthChangedEvent
     {
@@ -33,6 +33,7 @@ namespace MrX.EndlessSurvivor
     public struct EnemyDiedEvent
     {
         public int diecoin;
+        public GameObject deadEnemyObject; // << THÊM DÒNG NÀY
     }
     public struct InitialUIDataReadyEvent
     {
@@ -40,5 +41,5 @@ namespace MrX.EndlessSurvivor
         // public int maxHealth;
         // public int defScore;
     }
-
+    // Test asmdef;
 }

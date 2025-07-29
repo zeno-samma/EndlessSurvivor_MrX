@@ -154,7 +154,15 @@ namespace MrX.EndlessSurvivor
 
                 // Lấy Transform của điểm spawn ngẫu nhiên đó
                 Transform randomSpawnPoint = spawnPoints[randomIndex];
-                PoolManager.Ins.GetFromPool(name, randomSpawnPoint.position);
+                // Lấy object từ pool và lưu nó vào một biến
+                GameObject enemyObj = PoolManager.Ins.GetFromPool(name, randomSpawnPoint.position);
+                // Lấy script Enemy từ object đó
+                Enemy enemyScript = enemyObj.GetComponent<Enemy>();
+                // Đăng ký lính mới với Manager
+                if (enemyScript != null)
+                {
+                    EnemyManager.Ins.RegisterEnemy(enemyScript);
+                }
                 // Debug.Log("Spawn");
                 yield return new WaitForSeconds(spawnInterval);
             }

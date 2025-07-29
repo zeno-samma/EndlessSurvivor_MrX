@@ -10,16 +10,19 @@ namespace MrX.EndlessSurvivor
         // [SerializeField] private Image amountImage;
         // Dữ liệu động của người chơi
         private int healthLevel;
+        public ReactiveProperty<float> CurrentHealth { get; private set; } = new ReactiveProperty<float>();
+
         // private float currentHealth;
         // =========Unirx
         // Vừa là biến lưu trữ, vừa là một dòng chảy sự kiện
-        public ReactiveProperty<float> CurrentHealth { get; private set; }
+        // public ReactiveProperty<float> CurrentHealth { get; private set; }
         // =======================================
         // private float damageLevel;
         // private float cooldownLevel;
         // private int currentGold;
 
         // --- Các thuộc tính (Properties) để tính toán chỉ số cuối cùng ---
+        // public float MaxHealth => playerConfig.initialHealth + (playerConfig.healthBonusPerLevel);
         public float MaxHealth => playerConfig.initialHealth + (playerConfig.healthBonusPerLevel * healthLevel);
         // public float CurrentDamage => playerConfig.initialDamage + (playerConfig.damageBonusPerLevel * damageLevel);
         // public float CurrentCooldown => playerConfig.initialCooldown - (playerConfig.cooldownReductionPerLevel * cooldownLevel);
@@ -36,8 +39,8 @@ namespace MrX.EndlessSurvivor
 
         void Awake()
         {
-            // Khởi tạo ReactiveProperty với giá trị ban đầu là maxHealth
-            CurrentHealth = new ReactiveProperty<float>(MaxHealth);
+            // Gán giá trị ban đầu
+            CurrentHealth.Value = MaxHealth;
         }
         // Hàm này được GameManager gọi trước khi save game
         public PlayerData GetDataToSave()
@@ -59,12 +62,6 @@ namespace MrX.EndlessSurvivor
             // << BÁO HIỆU CHO GAMEMANAGER >>
             // GameManager.Ins.SaveGame();//Dùng cho ít lần thay đổi và các thay đổi quan trọng(Qua một chương, hoàn thành được thành tựu)
             // GameManager.Ins.MarkDataAsDirty();//Dùng cho trường hợp nhặt liên tục 10 coins
-        }
-        void Start()
-        {
-            // Khởi tạo ReactiveProperty với giá trị ban đầu là maxHealth
-            CurrentHealth = new ReactiveProperty<float>(MaxHealth);
-            // currentHealth = MaxHealth;
         }
 
         public void TakeDamage(float damage)//Player nhận sát thương từ enemy

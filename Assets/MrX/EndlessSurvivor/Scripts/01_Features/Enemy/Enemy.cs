@@ -20,18 +20,18 @@ namespace MrX.EndlessSurvivor
         // OnEnable và OnDisable để đăng ký/hủy đăng ký với EnemyManager
         void OnEnable()
         {
-            if (EnemyManager.Ins != null)
-            {
-                EnemyManager.Ins.RegisterEnemy(this);
-            }
+            // if (EnemyManager.Ins != null)
+            // {
+            //     EnemyManager.Ins.RegisterEnemy(this);
+            // }
         }
 
         void OnDisable()
         {
-            if (EnemyManager.Ins != null)
-            {
-                EnemyManager.Ins.UnregisterEnemy(this);
-            }
+            // if (EnemyManager.Ins != null)
+            // {
+            //     EnemyManager.Ins.UnregisterEnemy(this);
+            // }
         }
     }
 }
