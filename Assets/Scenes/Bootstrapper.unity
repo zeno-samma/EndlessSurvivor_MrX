@@ -950,6 +950,9 @@ MonoBehaviour:
   - tag: PlayerBullet
     prefab: {fileID: 562255894656378738, guid: 672363e90e2164345af9fceed1580142, type: 3}
     initialSize: 10
+  - tag: XpGem
+    prefab: {fileID: 8509341962681077187, guid: e3d1ade12083ad5418ded194f09299d7, type: 3}
+    initialSize: 30
   poolContainer: {fileID: 15909967}
 --- !u!114 &1662646246
 MonoBehaviour:

@@ -20,6 +20,7 @@ namespace MrX.EndlessSurvivor
         // public PlayerHealth HealthComponent;
         public GameObject playerObject;
     }
+    public struct PlayerLeveledUpEvent { }
     public struct PlayerDiedEvent { }
 
     public struct StateUpdatedEvent

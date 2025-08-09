@@ -110,9 +110,12 @@ namespace MrX.EndlessSurvivor
             {
                 currentHealth = 0;
                 int coinBonus = UnityEngine.Random.Range(minCoinBonus, maxCoinBonus);
-                EventBus.Publish(new EnemyDiedEvent { diecoin = coinBonus,deadEnemyObject = this.gameObject });
+                EventBus.Publish(new EnemyDiedEvent { diecoin = coinBonus, deadEnemyObject = this.gameObject });
                 // Debug.Log("Chết");
                 gameObject.SetActive(false);
+                GameObject xpGemObj = PoolManager.Ins.GetFromPool("XpGem", this.gameObject.transform.position);
+                XpGem XpGemScript = xpGemObj.GetComponent<XpGem>();
+                // XpGemScript.SetDirection(currentTarget);
             }
             // Cập nhật UI ngay sau khi máu thay đổi
             UpdateHealthBar();
