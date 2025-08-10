@@ -1,11 +1,11 @@
 {
-    "name": "Gameplay",
+    "name": "UI",
     "rootNamespace": "",
     "references": [
-        "GUID:d4e10defdb4780641bcc8f6e55f9315a",
-        "GUID:b6e0f5a5bf696704b8cb48188952d870",
-        "GUID:16d4c5c5e37a54c4f815ecb1a445738a",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+        "Core",
+        "Unity.TextMeshPro",
+        "Player",
+        "UniRx"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

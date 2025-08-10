@@ -1,5 +1,6 @@
 using System.Collections;
 using MrX.EndlessSurvivor;
+using UniRx;
 using UnityEngine;
 
 namespace MrX.EndlessSurvivor
@@ -9,6 +10,7 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private Transform[] spawnPoints;
         [SerializeField] private int m_waveNumber = 0;
         [SerializeField] private int m_CD_Nextwave;
+        public ReactiveProperty<float> CurrentTime { get; private set; } = new ReactiveProperty<float>(1);
         public enum SpawnState
         {
             SPAWNING,      // Trạng thái đang tạo địch
@@ -83,14 +85,14 @@ namespace MrX.EndlessSurvivor
         }
         private IEnumerator CountdownCoroutine(float duration)
         {
-            float timer = duration;
+            CurrentTime.Value = duration;
 
             // Bắt đầu vòng lặp đếm ngược
-            while (timer > 0)
+            while (CurrentTime.Value > 0)
             {
                 // Giảm thời gian
-                Debug.Log($"Time: {timer}");
-                timer -= Time.deltaTime;
+                Debug.Log($"CurrentTime: {CurrentTime.Value}");
+                CurrentTime.Value -= Time.deltaTime;
                 yield return null;
             }
 

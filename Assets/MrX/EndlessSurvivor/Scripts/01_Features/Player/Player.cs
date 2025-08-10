@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 
 namespace MrX.EndlessSurvivor
@@ -11,12 +12,16 @@ namespace MrX.EndlessSurvivor
         public PlayerMovement Movement { get; private set; }
         public PlayerHealth Health { get; private set; }
         public WeaponManager Weapon { get; private set; }
-        public int currentXp;
-        public int xpToNextLevel;
-        public int Level;
+        // Thay thế các biến thông thường
+        public ReactiveProperty<int> CurrentLevel { get; private set; } = new ReactiveProperty<int>(1);
+        public ReactiveProperty<int> CurrentXp { get; private set; } = new ReactiveProperty<int>(0);
+        public ReactiveProperty<int> XpToNextLevel { get; private set; } = new ReactiveProperty<int>(100);
+        // public int currentXp;
+        // public int xpToNextLevel;
+        // public int Level;
         void OnEnable()
         {
-            Debug.Log($"currentXp: {currentXp}");
+            Debug.Log($"CurrentLevel: {CurrentLevel}");
             // Thông báo cho toàn bộ hệ thống: "Tôi đã xuất hiện! Đây là Transform của tôi."
             EventBus.Publish(new PlayerSpawnedEvent
             {
@@ -69,18 +74,22 @@ namespace MrX.EndlessSurvivor
 
         void GainExperience(int amount)
         {
-            currentXp += amount;
-            Debug.Log($"currentXp: {currentXp}");
-            if (currentXp >= xpToNextLevel)
+            CurrentXp.Value += amount;
+            // Debug.Log($"CurrentXp: {CurrentXp.Value}");
+            if (CurrentXp.Value >= XpToNextLevel.Value)
             {
                 // Trừ đi lượng XP cần thiết để lên cấp
-                currentXp -= xpToNextLevel;
+                CurrentXp.Value -= XpToNextLevel.Value;
                 // Tăng mốc XP cho cấp tiếp theo (ví dụ tăng 50%)
-                xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
-                Level += 1;
-                Debug.Log($"Level: {Level}");
+                XpToNextLevel.Value = Mathf.RoundToInt(XpToNextLevel.Value * 1.5f);
+                CurrentLevel.Value += 1;
+                // Cập nhật UI
+                // progressBar.value = progressValue;
                 // BÂY GIỜ MỚI LÀ LÚC PHÁT SỰ KIỆN LÊN CẤP
-                EventBus.Publish(new PlayerLeveledUpEvent()); // Event này không cần mang data
+                // float Value = currentXp / xpToNextLevel;
+                // Debug.Log($"Level: {Level} , Value: {Value}");
+                EventBus.Publish(new PlayerLeveledUpEvent {});
+
             }
             // ... kiểm tra logic level up ở đây ...
         }
