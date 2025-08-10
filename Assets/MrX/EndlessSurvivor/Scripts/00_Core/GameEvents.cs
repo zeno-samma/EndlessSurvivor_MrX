@@ -27,6 +27,10 @@ namespace MrX.EndlessSurvivor
     {
         public GameState CurState;
     }
+    public struct UpgradeChosenEvent
+    {
+        public UpgradeData selectedUpgrade;
+    }
     public struct PlayerHealthChangedEvent
     {
         public float NewHealthPercentage;

@@ -80,21 +80,6 @@ namespace MrX.EndlessSurvivor
             StopAllCoroutines();
         }
 
-
-        // private void SpawnEnemiesState(StateUpdatedEvent gameState)
-        // {
-        //     if (gameState.CurState == GameManager.GameState.PLAYING)
-        //     {
-
-        //         StartNextWave();
-        //     }
-        //     else if (gameState.CurState == GameManager.GameState.GAMEOVER)
-        //     {
-        //         // Debug.Log("Vào đây");
-        //         StopAllCoroutines();
-        //         Time.timeScale = 0f;
-        //     }
-        // }
         private void Update()
         {
 

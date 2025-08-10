@@ -81,10 +81,6 @@ namespace MrX.EndlessSurvivor
                 Debug.Log($"Level: {Level}");
                 // BÂY GIỜ MỚI LÀ LÚC PHÁT SỰ KIỆN LÊN CẤP
                 EventBus.Publish(new PlayerLeveledUpEvent()); // Event này không cần mang data
-
-                // Tạm dừng game và gọi bảng nâng cấp
-                EventBus.Publish(new StateUpdatedEvent { CurState = GameState.UPGRADEPHASE }); //
-                Time.timeScale = 0;
             }
             // ... kiểm tra logic level up ở đây ...
         }

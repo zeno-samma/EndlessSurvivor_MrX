@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 1292440340316557360}
   - component: {fileID: 390791949414692183}
   - component: {fileID: 7622826597653684530}
+  - component: {fileID: 243934594299694879}
   m_Layer: 6
   m_Name: Spaceships_01
   m_TagString: Player
@@ -299,6 +300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed31c81875f43b41aff9b2e5ebfca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentXp: 0
+  xpToNextLevel: 100
+  Level: 0
 --- !u!114 &3542406678559963723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +392,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f51ce35b1a00748a453ac9d3419686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &243934594299694879
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5986085233292536117}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 2.8
 --- !u!1001 &3889430968134327657
 PrefabInstance:
   m_ObjectHideFlags: 0

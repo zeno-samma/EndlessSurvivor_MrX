@@ -1166,47 +1166,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1666693968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1127293121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5986085233292536117, guid: 585d3b51c35131f4aa5c7a4c6d6a612f, type: 3}
-  m_PrefabInstance: {fileID: 427926484092164410}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &1127293129
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127293121}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 2.8
 --- !u!1 &1250540137
 GameObject:
   m_ObjectHideFlags: 0
@@ -26422,17 +26381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spaceships_01
       objectReference: {fileID: 0}
-    - target: {fileID: 8176401838214471805, guid: 585d3b51c35131f4aa5c7a4c6d6a612f, type: 3}
-      propertyPath: xpToNextLevel
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5986085233292536117, guid: 585d3b51c35131f4aa5c7a4c6d6a612f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1127293129}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 585d3b51c35131f4aa5c7a4c6d6a612f, type: 3}
 --- !u!114 &731426655695028192
 MonoBehaviour:
@@ -43700,9 +43652,9 @@ RectTransform:
   - {fileID: 4614138095484822889}
   m_Father: {fileID: 3682579647673998309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 91.224556, y: -100.048706}
   m_SizeDelta: {x: 182.44911, y: 200.09741}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3682579647670654178
@@ -43825,7 +43777,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -116.70001}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 627.34735, y: 200.09741}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3682579647673998314
 MonoBehaviour:
@@ -59005,7 +58957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3682579648412815228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59021,6 +58973,7 @@ MonoBehaviour:
   upgradeCard1: {fileID: 3682579647670654180}
   upgradeCard2: {fileID: 4614138095763361696}
   upgradeCard3: {fileID: 4614138096793896296}
+  upgradeSO: {fileID: 11400000, guid: 1cbac96e4c3caeb40a34b8be583674d4, type: 2}
 --- !u!1 &3682579648465747864
 GameObject:
   m_ObjectHideFlags: 0
@@ -79656,9 +79609,9 @@ RectTransform:
   - {fileID: 4614138095010082401}
   m_Father: {fileID: 3682579647673998309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 313.67368, y: -100.048706}
   m_SizeDelta: {x: 182.44911, y: 200.09741}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4614138095763361689
@@ -89890,9 +89843,9 @@ RectTransform:
   - {fileID: 4614138095848970313}
   m_Father: {fileID: 3682579647673998309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 536.1228, y: -100.048706}
   m_SizeDelta: {x: 182.44911, y: 200.09741}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4614138096793896295

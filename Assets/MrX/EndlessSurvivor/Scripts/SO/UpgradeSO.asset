@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5f76cd66f11d04e8f81139bfe32b0c, type: 3}
+  m_Name: UpgradeSO
+  m_EditorClassIdentifier: 
+  allUpgrades:
+  - upgradeName: "S\u1EE9c M\u1EA1nh V\u01B0\u1EE3t Tr\u1ED9i"
+    description: Atk
+    type: 0
+    value: 1
+  - upgradeName: "Sinh L\u1EF1c D\u1ED3i D\xE0o"
+    description: Health
+    type: 1
+    value: 10
+  - upgradeName: "X\u1EA1 Th\u1EE7 Th\u1EA7n T\u1ED1c"
+    description: 
+    type: 2
+    value: 2

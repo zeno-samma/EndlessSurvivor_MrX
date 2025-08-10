@@ -7,10 +7,6 @@ namespace MrX.EndlessSurvivor
         // test tốc độc asmdef;
         // [SerializeField] public GameObject MainMenuPanel;
         public GameObject upgradePanel;
-        void Awake()
-        {
-            upgradePanel.SetActive(false);
-        }
         private void OnEnable()
         {
 
@@ -38,7 +34,7 @@ namespace MrX.EndlessSurvivor
             // Tắt hết các panel trước để đảm bảo sạch sẽ
             // pauseMenuPanel.SetActive(false);
             // PopUpPanel.SetActive(false);
-            // upgradePanel.SetActive(false);
+            upgradePanel.SetActive(false);
             // gameOverPanel.SetActive(false);
             // HomeGui.SetActive(false);
 

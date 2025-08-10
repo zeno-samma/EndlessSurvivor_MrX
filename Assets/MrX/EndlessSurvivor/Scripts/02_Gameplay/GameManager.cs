@@ -20,13 +20,21 @@ namespace MrX.EndlessSurvivor
         {
             EventBus.Subscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
             EventBus.Subscribe<PlayerDiedEvent>(GameOver);
+            EventBus.Subscribe<PlayerLeveledUpEvent>(OnPlayerLeveledUp);
         }
 
         private void OnDisable()
         {
             EventBus.Unsubscribe<PlayerSpawnedEvent>(OnPlayerSpawned);
             EventBus.Unsubscribe<PlayerDiedEvent>(GameOver);
+            EventBus.Unsubscribe<PlayerLeveledUpEvent>(OnPlayerLeveledUp);
         }
+
+        private void OnPlayerLeveledUp(PlayerLeveledUpEvent value)
+        {
+            UpdateGameState(GameState.UPGRADEPHASE);
+        }
+
         private void OnPlayerSpawned(PlayerSpawnedEvent value)
         {
             // Nhận Transform từ sự kiện và lưu lại

@@ -26,7 +26,16 @@ namespace MrX.EndlessSurvivor
             // Cập nhật thanh máu đầy khi mới xuất hiện
             UpdateHealthBar();
         }
-
+        void OnDisable()
+        {
+            // Khi enemy bị vô hiệu hóa (tắt đi),
+            // dừng ngay coroutine gây sát thương nếu nó đang chạy.
+            if (damageCoroutine != null)
+            {
+                StopCoroutine(damageCoroutine);
+                damageCoroutine = null;
+            }
+        }
         private void UpdateHealthBar()
         {
             if (healthBarFill != null)
@@ -51,7 +60,7 @@ namespace MrX.EndlessSurvivor
                 IDamageable damageableTarget = colTarget.GetComponentInChildren<IDamageable>();
 
                 // // 3. Kiểm tra để chắc chắn là đã lấy được script (tránh lỗi null)
-                if (damageableTarget != null)
+                if (damageableTarget != null && this.gameObject.activeInHierarchy)
                 {
                     // Bắt đầu coroutine và truyền "player" vào,
                     // đồng thời lưu lại coroutine này vào biến damageCoroutine
