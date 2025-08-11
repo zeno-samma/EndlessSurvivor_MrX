@@ -20,7 +20,7 @@ namespace MrX.EndlessSurvivor
         // public PlayerHealth HealthComponent;
         public GameObject playerObject;
     }
-    public struct PlayerLeveledUpEvent{}
+    public struct PlayerLeveledUpEvent { }
     public struct PlayerDiedEvent { }
 
     public struct StateUpdatedEvent
@@ -39,6 +39,11 @@ namespace MrX.EndlessSurvivor
     {
         public int diecoin;
         public GameObject deadEnemyObject; // << THÊM DÒNG NÀY
+    }
+    // Dùng class thay vì struct cũng được
+    public class WaveCountdownTickMessage //Phụ thuộc ngược dùng unirx thay vì eventbus(cách 2)
+    {
+        public float RemainingTime;
     }
     public struct InitialUIDataReadyEvent
     {
