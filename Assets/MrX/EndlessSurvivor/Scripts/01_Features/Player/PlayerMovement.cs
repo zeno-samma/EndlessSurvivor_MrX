@@ -6,7 +6,7 @@ namespace MrX.EndlessSurvivor
     public class PlayerMovement : MonoBehaviour
     {
         public PlayerConfigSO playerConfig; // Biến để chứa file config của người chơi
-
+        public Joystick joystick; // << THÊM DÒNG NÀY
         private Rigidbody2D rb; // Để xử lý vật lý
         Vector2 moveInput;
         // private Animator m_anim;
@@ -24,9 +24,12 @@ namespace MrX.EndlessSurvivor
 
         // Update is called once per frame
         void Update()
-        {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveY = Input.GetAxisRaw("Vertical");
+        {   //Keyboard
+            // float moveX = Input.GetAxisRaw("Horizontal");
+            // float moveY = Input.GetAxisRaw("Vertical");
+            // BẰNG code lấy input từ joystick:
+            float moveX = joystick.Horizontal;
+            float moveY = joystick.Vertical;
 
             moveInput = new Vector2(moveX, moveY).normalized;
         }

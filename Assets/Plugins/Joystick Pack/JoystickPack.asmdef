@@ -1,12 +1,7 @@
 {
-    "name": "Player",
+    "name": "JoystickPack",
     "rootNamespace": "",
-    "references": [
-        "GUID:d4e10defdb4780641bcc8f6e55f9315a",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
-        "GUID:16d4c5c5e37a54c4f815ecb1a445738a",
-        "GUID:83a828de834871c4480ce4068e8cc4d0"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
