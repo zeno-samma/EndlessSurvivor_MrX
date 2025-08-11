@@ -75,7 +75,6 @@ namespace MrX.EndlessSurvivor
         void GainExperience(int amount)
         {
             CurrentXp.Value += amount;
-            // Debug.Log($"CurrentXp: {CurrentXp.Value}");
             if (CurrentXp.Value >= XpToNextLevel.Value)
             {
                 // Trừ đi lượng XP cần thiết để lên cấp
@@ -89,6 +88,7 @@ namespace MrX.EndlessSurvivor
                 // float Value = currentXp / xpToNextLevel;
                 // Debug.Log($"Level: {Level} , Value: {Value}");
                 EventBus.Publish(new PlayerLeveledUpEvent {});
+                Debug.Log("1.Thăng Cấp");
 
             }
             // ... kiểm tra logic level up ở đây ...

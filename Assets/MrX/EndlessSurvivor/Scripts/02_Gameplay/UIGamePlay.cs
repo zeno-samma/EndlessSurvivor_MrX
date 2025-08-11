@@ -6,7 +6,11 @@ namespace MrX.EndlessSurvivor
     {
         // test tốc độc asmdef;
         // [SerializeField] public GameObject MainMenuPanel;
-        public GameObject upgradePanel;
+        public CanvasGroup canvasGroupLevelUP;
+        void Awake()
+        {
+            canvasGroupLevelUP.alpha = 0;
+        }
         private void OnEnable()
         {
 
@@ -34,7 +38,7 @@ namespace MrX.EndlessSurvivor
             // Tắt hết các panel trước để đảm bảo sạch sẽ
             // pauseMenuPanel.SetActive(false);
             // PopUpPanel.SetActive(false);
-            upgradePanel.SetActive(false);
+            canvasGroupLevelUP.alpha = 0;
             // gameOverPanel.SetActive(false);
             // HomeGui.SetActive(false);
 
@@ -45,7 +49,7 @@ namespace MrX.EndlessSurvivor
                 //     // MainMenuPanel.SetActive(true);
                 //     break;
                 case GameState.PLAYING:
-                    upgradePanel.SetActive(false);
+                    canvasGroupLevelUP.alpha = 0;
                     // gameplayHUD.SetActive(true);
                     break;
                 case GameState.PAUSE:
@@ -53,9 +57,11 @@ namespace MrX.EndlessSurvivor
                     break;
                 case GameState.UPGRADEPHASE:
                     // gameplayHUD.SetActive(true);
-                    upgradePanel.SetActive(true);
+                    Debug.Log("4.vào UPGRADEPHASE");
+                    canvasGroupLevelUP.alpha = 1;
                     break;
                 case GameState.GAMEOVER:
+                    canvasGroupLevelUP.alpha = 0;
                     // Debug.Log("GAMEOVERUI");
                     // gameplayHUD.SetActive(true);
                     // gameOverPanel.SetActive(true);

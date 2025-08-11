@@ -9,6 +9,22 @@ namespace MrX.EndlessSurvivor
     {
         [SerializeField] private Slider sliderProgress;
         [SerializeField] private TextMeshProUGUI timeWave;      // Text hiển thị %
+        void OnEnable()
+        {
+            // Lắng nghe sự kiện cập nhật tiến trình
+            EventBus.Subscribe<WaveProgressUpdatedEvent>(OnWaveProgressUpdated);
+        }
+
+        void OnDisable()
+        {
+            EventBus.Unsubscribe<WaveProgressUpdatedEvent>(OnWaveProgressUpdated);
+        }
+
+        // Hàm xử lý khi nhận được sự kiện
+        private void OnWaveProgressUpdated(WaveProgressUpdatedEvent eventData)
+        {
+            sliderProgress.value = eventData.progressPercentage;
+        }
         void Start()
         {
             MessageBroker.Default // Một cách dùng cho trường hợp phụ thuộc ngược(Thay vì dùng eventbus)

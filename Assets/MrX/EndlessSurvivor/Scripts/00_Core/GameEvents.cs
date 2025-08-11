@@ -35,10 +35,15 @@ namespace MrX.EndlessSurvivor
     {
         public float NewHealthPercentage;
     }
+    public struct EnemySpawnedEvent{}
     public struct EnemyDiedEvent
     {
         public int diecoin;
         public GameObject deadEnemyObject; // << THÊM DÒNG NÀY
+    }
+    public struct WaveProgressUpdatedEvent
+    {
+        public float progressPercentage; // Giá trị từ 0.0 đến 1.0
     }
     // Dùng class thay vì struct cũng được
     public class WaveCountdownTickMessage //Phụ thuộc ngược dùng unirx thay vì eventbus(cách 2)

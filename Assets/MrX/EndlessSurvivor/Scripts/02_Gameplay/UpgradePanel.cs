@@ -12,6 +12,7 @@ namespace MrX.EndlessSurvivor
         public Button upgradeCard2;
         public Button upgradeCard3;
         public UpgradeSO upgradeSO;
+        public CanvasGroup canvasGroup;
 
         void OnEnable()
         {
@@ -56,7 +57,9 @@ namespace MrX.EndlessSurvivor
             EventBus.Publish(new UpgradeChosenEvent { selectedUpgrade = chosenUpgrade });
 
             // 5. Báo cho GameManager quay lại trạng thái chơi game
-            GameManager.Ins.UpdateGameState(GameState.PLAYING);
+            // GameManager.Ins.UpdateGameState(GameState.PLAYING);
+            Time.timeScale = 1f;
+            canvasGroup.alpha = 0;
 
         }
     }
