@@ -9,8 +9,10 @@ namespace MrX.EndlessSurvivor
     {
         [SerializeField] private Slider sliderProgress;
         [SerializeField] private TextMeshProUGUI timeWave;      // Text hiển thị %
+        [SerializeField] private CanvasGroup canvasGroup;
         void OnEnable()
         {
+            canvasGroup.alpha = 0;
             // Lắng nghe sự kiện cập nhật tiến trình
             EventBus.Subscribe<WaveProgressUpdatedEvent>(OnWaveProgressUpdated);
         }
@@ -31,7 +33,13 @@ namespace MrX.EndlessSurvivor
                 .Receive<WaveCountdownTickMessage>() // Nhận dòng chảy tin nhắn loại này
                 .Subscribe(message =>
                 { // Đăng ký lắng nghe
-                    timeWave.text = Mathf.CeilToInt(message.RemainingTime).ToString();
+                    canvasGroup.alpha = 1;
+                    timeWave.text = Mathf.RoundToInt(message.RemainingTime).ToString();
+                    if (Mathf.CeilToInt(message.RemainingTime) <= 1f)
+                    {
+                        Debug.Log($"CurrentTime: {message.RemainingTime}");
+                        canvasGroup.alpha = 0;
+                    }
                 })
                 .AddTo(this);
         }

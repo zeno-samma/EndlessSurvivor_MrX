@@ -7,7 +7,7 @@ namespace MrX.EndlessSurvivor
     public class WaveSpawner : MonoBehaviour
     {
         [SerializeField] private Transform[] spawnPoints;
-        [SerializeField] private int m_CD_Nextwave;
+        [SerializeField] private int m_CD_Nextwave = 5;
         // Thêm biến tổng số wave
         [SerializeField] private int totalWavesInStage = 5;
         public int CurrentWave { get; private set; }
@@ -136,7 +136,7 @@ namespace MrX.EndlessSurvivor
             while (timer > 0)
             {
                 // Giảm thời gian
-                // Debug.Log($"CurrentTime: {CurrentTime.Value}");
+                // Debug.Log($"CurrentTime: {timer}");
                 MessageBroker.Default.Publish(new WaveCountdownTickMessage { RemainingTime = timer });
                 timer -= Time.deltaTime;
                 yield return null;

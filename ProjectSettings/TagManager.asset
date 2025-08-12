@@ -72,5 +72,8 @@ TagManager:
   - name: Weapon
     uniqueID: 1978871219
     locked: 0
+  - name: PopupUI
+    uniqueID: 1805579619
+    locked: 0
   m_RenderingLayers:
   - Default
