@@ -183,11 +183,37 @@ namespace MrX.EndlessSurvivor
                     m_state = SpawnState.SPAWNING;
                     break;
 
+                case 5:
+                    // --- Điều kiện cho Wave 4 ---
+                    Debug.Log("Kịch bản Wave 4: 1 x Mini-Boss!");
+                    StartCoroutine(SpawnMixedWave_05()); // Gọi một coroutine có kịch bản phức tạp hơn
+                    m_state = SpawnState.SPAWNING;
+                    break;
+
                 default:
                     Debug.Log("Kịch bản Wave " + CurrentWaveNumber.Value + ": Thử thách tăng dần!");
                     break;
             }
         }
+
+        private IEnumerator SpawnMixedWave_05()
+        {
+            m_state = SpawnState.SPAWNING;
+            EnemiesKilledThisWave.Value = 0;
+
+            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
+            int totalEnemies = 1; // GiantSlimeBlue(5) + GiantSpirit(2)
+            TotalEnemiesInWave.Value = totalEnemies;
+            // --- Đợt 1: Spawn 1 GiantSpirit ---
+            for (int i = 0; i < 1; i++)
+            {
+                SpawnAndRegister("GiantBamboo");
+                yield return new WaitForSeconds(1f);
+            }
+            m_state = SpawnState.WAITING;
+            Debug.Log("Đã spawn xong wave 5, đang chờ người chơi dọn dẹp...");
+        } 
+
         private void SpawnAndRegister(string enemyName)
         {
             int randomIndex = Random.Range(0, spawnPoints.Length);
