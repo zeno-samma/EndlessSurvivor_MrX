@@ -300,9 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed31c81875f43b41aff9b2e5ebfca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentXp: 0
-  xpToNextLevel: 100
-  Level: 0
 --- !u!114 &3542406678559963723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerConfig: {fileID: 11400000, guid: b45b2f2a7774dd4469c45f3c88e87bbd, type: 2}
+  joystick: {fileID: 0}
 --- !u!50 &1292440340316557360
 Rigidbody2D:
   serializedVersion: 5

@@ -15,13 +15,16 @@ MonoBehaviour:
   allUpgrades:
   - upgradeName: "S\u1EE9c M\u1EA1nh V\u01B0\u1EE3t Tr\u1ED9i"
     description: Atk
+    icon: {fileID: 21300000, guid: 5b8656d7924444c4aa787cedf8e54a8a, type: 3}
     type: 0
     value: 1
   - upgradeName: "Sinh L\u1EF1c D\u1ED3i D\xE0o"
     description: Health
+    icon: {fileID: 21300000, guid: f66f1ca1102f3456d8dff43b21ad8234, type: 3}
     type: 1
     value: 10
-  - upgradeName: "X\u1EA1 Th\u1EE7 Th\u1EA7n T\u1ED1c"
-    description: 
+  - upgradeName: "Di Chuy\u1EC3n Si\xEAu T\u1ED1c"
+    description: Speed
+    icon: {fileID: 21300000, guid: 208679d2cac6545b0a4f10df8c8c8d10, type: 3}
     type: 2
     value: 2

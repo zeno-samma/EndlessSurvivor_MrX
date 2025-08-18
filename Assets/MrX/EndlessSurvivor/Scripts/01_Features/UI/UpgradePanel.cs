@@ -2,17 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro; // Cần để dùng TextMeshPro
 
 namespace MrX.EndlessSurvivor
 {
     public class UpgradePanel : MonoBehaviour
     {
-        public Button upgradeCard1;
-        public Button upgradeCard2;
-        public Button upgradeCard3;
-        public UpgradeSO upgradeSO;
-        public CanvasGroup canvasGroup;
+        [SerializeField] private Button upgradeCard1;
+        [SerializeField] private Button upgradeCard2;
+        [SerializeField] private Button upgradeCard3;
+        [SerializeField] private UpgradeSO upgradeSO;
+        [SerializeField] private Image iconUpgradeCard1;
+        [SerializeField] private Image iconUpgradeCard2;
+        [SerializeField] private Image iconUpgradeCard3;
+        [SerializeField] private TextMeshProUGUI valueTxtUpgradeCard1;      // Text hiển thị %
+        [SerializeField] private TextMeshProUGUI valueTxtUpgradeCard2;      // Text hiển thị %
+        [SerializeField] private TextMeshProUGUI valueTxtUpgradeCard3;      // Text hiển thị %
+
+        [SerializeField] private CanvasGroup canvasGroup;
 
         void OnEnable()
         {
@@ -29,18 +36,24 @@ namespace MrX.EndlessSurvivor
             // --- Lấy và Debug Lựa Chọn 1 ---
             int index1 = UnityEngine.Random.Range(0, tempUpgradePool.Count);
             UpgradeData choice1 = tempUpgradePool[index1];
+            iconUpgradeCard1.sprite = choice1.icon;
+            valueTxtUpgradeCard1.text = $"{choice1.value}";
             tempUpgradePool.RemoveAt(index1); // Xóa khỏi kho tạm để không bị chọn lại
             Debug.Log("Thẻ 1 random ra: " + choice1.upgradeName);
 
             // --- Lấy và Debug Lựa Chọn 2 ---
             int index2 = UnityEngine.Random.Range(0, tempUpgradePool.Count);
             UpgradeData choice2 = tempUpgradePool[index2];
+            iconUpgradeCard2.sprite = choice2.icon;
+            valueTxtUpgradeCard2.text = $"{choice2.value}";
             tempUpgradePool.RemoveAt(index2);
             Debug.Log("Thẻ 2 random ra: " + choice2.upgradeName);
 
             // --- Lấy và Debug Lựa Chọn 3 ---
             int index3 = UnityEngine.Random.Range(0, tempUpgradePool.Count);
             UpgradeData choice3 = tempUpgradePool[index3];
+            iconUpgradeCard3.sprite = choice3.icon;
+            valueTxtUpgradeCard3.text = $"{choice3.value}";
             Debug.Log("Thẻ 3 random ra: " + choice3.upgradeName);
 
             // 3. Gán sự kiện OnClick cho mỗi nút, truyền vào nâng cấp tương ứng

@@ -10,12 +10,12 @@ namespace MrX.EndlessSurvivor
         [Header("UI")]
         // "Bộ não" giữ tham chiếu đến các "bộ phận"
         public EnemyHealth Health { get; private set; }
-        public EnemyMovement Movement { get; private set; }
+        public RangedEnemy rangedEnemy { get; private set; }
         void Awake()
         {
             // Tự động lấy các bộ phận của mình
             Health = GetComponent<EnemyHealth>();
-            Movement = GetComponent<EnemyMovement>();
+            rangedEnemy = GetComponent<RangedEnemy>();
         }
         // OnEnable và OnDisable để đăng ký/hủy đăng ký với EnemyManager
         void OnEnable()

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6427195604296598966}
   - component: {fileID: 7292113150834134664}
   - component: {fileID: 5960874051877397030}
-  - component: {fileID: 8226235516646873051}
+  - component: {fileID: 5422744667935171088}
   m_Layer: 0
   m_Name: GiantSpirit
   m_TagString: Enemy
@@ -209,7 +209,7 @@ MonoBehaviour:
   currentHealth: 0
   minCoinBonus: 0
   maxCoinBonus: 0
---- !u!114 &8226235516646873051
+--- !u!114 &5422744667935171088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e9a1e9d28e0a045b6b9f9c3ff13d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   moveSpeed: 2
+  damage: 1
+  experienceDropped: 5
+  stoppingDistance: 5
+  fireRate: 2
+  projectilePrefab: {fileID: 0}
+  timeBetweenDecisions: 2
 --- !u!1001 &6144694891212164533
 PrefabInstance:
   m_ObjectHideFlags: 0

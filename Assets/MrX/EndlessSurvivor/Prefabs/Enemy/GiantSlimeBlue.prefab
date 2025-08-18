@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6738136060357812890}
   - component: {fileID: 8608282770355438823}
   - component: {fileID: 6328369997481049989}
-  - component: {fileID: 2870679361606719772}
+  - component: {fileID: -631341412037789411}
   m_Layer: 0
   m_Name: GiantSlimeBlue
   m_TagString: Enemy
@@ -209,7 +209,7 @@ MonoBehaviour:
   currentHealth: 0
   minCoinBonus: 0
   maxCoinBonus: 0
---- !u!114 &2870679361606719772
+--- !u!114 &-631341412037789411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e9a1e9d28e0a045b6b9f9c3ff13d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  maxHealth: 10
+  moveSpeed: 2
+  damage: 1
+  experienceDropped: 5
+  stoppingDistance: 5
+  fireRate: 2
+  projectilePrefab: {fileID: 0}
+  timeBetweenDecisions: 2
 --- !u!1001 &4753862775053678658
 PrefabInstance:
   m_ObjectHideFlags: 0

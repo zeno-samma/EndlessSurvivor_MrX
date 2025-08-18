@@ -221,7 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e9a1e9d28e0a045b6b9f9c3ff13d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   moveSpeed: 2
+  damage: 1
+  experienceDropped: 5
+  stoppingDistance: 5
+  fireRate: 2
+  projectilePrefab: {fileID: 0}
+  timeBetweenDecisions: 2
 --- !u!1001 &4633760090149952538
 PrefabInstance:
   m_ObjectHideFlags: 0
