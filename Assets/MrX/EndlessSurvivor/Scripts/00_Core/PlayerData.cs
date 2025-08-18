@@ -9,6 +9,7 @@ namespace MrX.EndlessSurvivor
         public int gold;
         public int healthUpgradeLevel;
         public float damageUpgradeLevel;
+        public float speedUpgradeLevel;
         public float cooldownUpgradeLevel;
     }
 

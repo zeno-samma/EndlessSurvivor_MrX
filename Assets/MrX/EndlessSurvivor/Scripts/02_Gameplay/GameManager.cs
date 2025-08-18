@@ -49,7 +49,7 @@ namespace MrX.EndlessSurvivor
         {
             // Nhận Transform từ sự kiện và lưu lại
             this.playerHealth = value.playerObject.GetComponent<PlayerHealth>();
-            Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
+            // Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
             if (playerHealth != null && loadedPlayerData != null)
             {
                 Debug.Log("Ok");

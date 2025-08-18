@@ -21,7 +21,7 @@ namespace MrX.EndlessSurvivor
         // public int Level;
         void OnEnable()
         {
-            Debug.Log($"CurrentLevel: {CurrentLevel}");
+            // Debug.Log($"CurrentLevel: {CurrentLevel}");
             // Thông báo cho toàn bộ hệ thống: "Tôi đã xuất hiện! Đây là Transform của tôi."
             EventBus.Publish(new PlayerSpawnedEvent
             {

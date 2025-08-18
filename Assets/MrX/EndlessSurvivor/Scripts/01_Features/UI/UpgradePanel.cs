@@ -39,7 +39,7 @@ namespace MrX.EndlessSurvivor
             iconUpgradeCard1.sprite = choice1.icon;
             valueTxtUpgradeCard1.text = $"{choice1.value}";
             tempUpgradePool.RemoveAt(index1); // Xóa khỏi kho tạm để không bị chọn lại
-            Debug.Log("Thẻ 1 random ra: " + choice1.upgradeName);
+            // Debug.Log("Thẻ 1 random ra: " + choice1.upgradeName);
 
             // --- Lấy và Debug Lựa Chọn 2 ---
             int index2 = UnityEngine.Random.Range(0, tempUpgradePool.Count);
@@ -47,14 +47,14 @@ namespace MrX.EndlessSurvivor
             iconUpgradeCard2.sprite = choice2.icon;
             valueTxtUpgradeCard2.text = $"{choice2.value}";
             tempUpgradePool.RemoveAt(index2);
-            Debug.Log("Thẻ 2 random ra: " + choice2.upgradeName);
+            // Debug.Log("Thẻ 2 random ra: " + choice2.upgradeName);
 
             // --- Lấy và Debug Lựa Chọn 3 ---
             int index3 = UnityEngine.Random.Range(0, tempUpgradePool.Count);
             UpgradeData choice3 = tempUpgradePool[index3];
             iconUpgradeCard3.sprite = choice3.icon;
             valueTxtUpgradeCard3.text = $"{choice3.value}";
-            Debug.Log("Thẻ 3 random ra: " + choice3.upgradeName);
+            // Debug.Log("Thẻ 3 random ra: " + choice3.upgradeName);
 
             // 3. Gán sự kiện OnClick cho mỗi nút, truyền vào nâng cấp tương ứng
             upgradeCard1.onClick.AddListener(() => OnUpgradeSelected(choice1));
@@ -65,7 +65,7 @@ namespace MrX.EndlessSurvivor
         // // Hàm được gọi khi người chơi nhấn vào một nút
         private void OnUpgradeSelected(UpgradeData chosenUpgrade)
         {
-            Debug.Log($"Chọn sự kiện clic: {chosenUpgrade.upgradeName}");
+            // Debug.Log($"Chọn sự kiện clic: {chosenUpgrade.upgradeName}");
             // 4. Phát sự kiện báo cho Player biết nâng cấp nào đã được chọn
             EventBus.Publish(new UpgradeChosenEvent { selectedUpgrade = chosenUpgrade });
 
