@@ -37,7 +37,7 @@ namespace MrX.EndlessSurvivor
                     timeWave.text = Mathf.RoundToInt(message.RemainingTime).ToString();
                     if (Mathf.CeilToInt(message.RemainingTime) <= 1f)
                     {
-                        Debug.Log($"CurrentTime: {message.RemainingTime}");
+                        // Debug.Log($"CurrentTime: {message.RemainingTime}");
                         canvasGroup.alpha = 0;
                     }
                 })

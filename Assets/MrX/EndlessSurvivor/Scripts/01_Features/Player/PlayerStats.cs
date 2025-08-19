@@ -31,13 +31,19 @@ namespace MrX.EndlessSurvivor
 
                 case UpgradeType.MaxHealth:
                     // Truy cập đến PlayerHealth và cộng thêm
-                    // Ví dụ: playerHealth.maxHealth += chosenUpgrade.value;
+                    playerInfo.CurrentHealth.Value += chosenUpgrade.value;
+                    Debug.Log("Đã tăng Max Health thêm: " + chosenUpgrade.value);
+                    break;
+
+                case UpgradeType.MoveSpeed:
+                    // Truy cập đến PlayerHealth và cộng thêm
+                    playerInfo.CurrentSpeed.Value += chosenUpgrade.value;
                     Debug.Log("Đã tăng Max Health thêm: " + chosenUpgrade.value);
                     break;
 
                 case UpgradeType.FireRate:
                     // Truy cập đến WeaponManager và giảm cooldown
-                    // Ví dụ: weaponManager.fireRate -= chosenUpgrade.value;
+                    playerInfo.CurrentHealth.Value -= chosenUpgrade.value;
                     Debug.Log("Đã giảm Fire Rate đi: " + chosenUpgrade.value);
                     break;
             }

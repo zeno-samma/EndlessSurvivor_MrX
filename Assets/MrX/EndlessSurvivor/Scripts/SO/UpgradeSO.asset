@@ -27,4 +27,4 @@ MonoBehaviour:
     description: Speed
     icon: {fileID: 21300000, guid: 208679d2cac6545b0a4f10df8c8c8d10, type: 3}
     type: 2
-    value: 2
+    value: 1

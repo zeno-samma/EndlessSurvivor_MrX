@@ -71,6 +71,7 @@ namespace MrX.EndlessSurvivor
         }
         private IEnumerator TakeDamage(IDamageable TargetToDamage) // Gây sát thương cho người chơi
         {
+            
             while (true) // Dùng vòng lặp để gây sát thương liên tục
             {
                 if (TargetToDamage != null)

@@ -26,7 +26,7 @@ namespace MrX.EndlessSurvivor
         public ReactiveProperty<float> CurrentSpeed { get; private set; } = new ReactiveProperty<float>(0f);
         public ReactiveProperty<float> CurrentCooldown { get; private set; } = new ReactiveProperty<float>(100f);
         // Hàm này sẽ được GameManager gọi khi load game xong
-        void Start()
+        void Awake()
         {
             CurrentDamage.Value = MaxDamage;
             CurrentHealth.Value = MaxHealth;
