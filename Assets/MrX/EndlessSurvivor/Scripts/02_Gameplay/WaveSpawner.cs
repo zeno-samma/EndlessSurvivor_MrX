@@ -9,8 +9,8 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private Transform[] spawnPoints;
         [SerializeField] private int m_CD_Nextwave = 5;
         // Thêm biến tổng số wave
-        [SerializeField] private int totalWavesInStage = 5;
-        public int CurrentWave { get; private set; }
+        [SerializeField] private int totalWavesInStage = 20;
+        // public int CurrentWave { get; private set; }
         // public int enemyCount;// Dùng UniRx để tự động thông báo cho UI
         public ReactiveProperty<int> CurrentWaveNumber { get; private set; } = new ReactiveProperty<int>(0);
         public ReactiveProperty<int> EnemiesKilledThisWave { get; private set; } = new ReactiveProperty<int>(0);
@@ -59,22 +59,32 @@ namespace MrX.EndlessSurvivor
                     (killed, total, waveNum) => // "Công thức trộn" mới
                     {
                         if (total <= 0 || totalWavesInStage <= 0) return 0f;
-
+                        // ====================================Hệ thống cũ
                         // 1. Tính tiến trình của các wave đã hoàn thành
                         // Ví dụ: đang ở wave 3 -> (3-1)/5 = 0.4 (40%)
-                        float progressOfPreviousWaves = (float)(waveNum - 1) / totalWavesInStage;
+                        // float progressOfPreviousWaves = (float)(waveNum - 1) / totalWavesInStage;
 
                         // 2. Tính tiến trình nhỏ của wave hiện tại
                         // Ví dụ: giết 2/10 quái ở wave 3 -> (2/10) * (1/5) = 0.04 (4%)
-                        float progressOfCurrentWave = ((float)killed / total) / totalWavesInStage;
+                        // float progressOfCurrentWave = ((float)killed / total) / totalWavesInStage;
 
                         // 3. Cộng dồn lại
-                        return progressOfPreviousWaves + progressOfCurrentWave;
+                        // return progressOfPreviousWaves + progressOfCurrentWave;
+                        // =====================Hệ thống mới
+            
+                        // 2. Tính tiến trình nhỏ của wave hiện tại
+                        // Ví dụ: giết 2/10 quái ở wave 3 -> (2/10) * (1/5) = 0.04 (4%)
+                        // float progressOfCurrentWave = ((float)killed / total) / totalWavesInStage;
+                        float progressOfCurrentWave = ((float)killed / total);
+
+                        // 3. Cộng dồn lại
+                        // return progressOfPreviousWaves + progressOfCurrentWave;
+                        return progressOfCurrentWave;
                     })
                     .Subscribe(overallProgress =>
                     {
                         // Phát đi sự kiện chứa tiến trình tổng
-                        EventBus.Publish(new WaveProgressUpdatedEvent { progressPercentage = overallProgress });
+                        EventBus.Publish(new WaveProgressUpdatedEvent { progressPercentage = overallProgress, currentWaveNumber = CurrentWaveNumber.Value});
                     })
                     .AddTo(this);
         }

@@ -9,7 +9,10 @@ namespace MrX.EndlessSurvivor
     {
         [SerializeField] private Slider sliderProgress;
         [SerializeField] private TextMeshProUGUI timeWave;      // Text hiển thị %
+        [SerializeField] private TextMeshProUGUI currentWaveNumber;      // Text hiển thị %
+        [SerializeField] private TextMeshProUGUI currentNextWaveNumber;      // Text hiển thị %
         [SerializeField] private CanvasGroup canvasGroup;
+
         void OnEnable()
         {
             canvasGroup.alpha = 0;
@@ -26,6 +29,8 @@ namespace MrX.EndlessSurvivor
         private void OnWaveProgressUpdated(WaveProgressUpdatedEvent eventData)
         {
             sliderProgress.value = eventData.progressPercentage;
+            currentWaveNumber.text =$"{eventData.currentWaveNumber}";
+            currentNextWaveNumber.text = $"{eventData.currentWaveNumber + 1}";
         }
         void Start()
         {
@@ -41,7 +46,7 @@ namespace MrX.EndlessSurvivor
                         canvasGroup.alpha = 0;
                     }
                 })
-                .AddTo(this);
+                .AddTo(this);   
         }
     }
 }
