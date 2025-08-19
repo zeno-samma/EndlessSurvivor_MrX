@@ -28,7 +28,12 @@ namespace MrX.EndlessSurvivor
             // Debug.Log("TakeDamage: " + damage);
             if (playerInfo.CurrentHealth.Value <= 0) return; // Nếu đã chết rồi thì không nhận thêm sát thương
             // currentHealth -= damage;
-            playerInfo.CurrentHealth.Value -= damage;
+            float CurrentDamage = damage - playerInfo.CurrentDef.Value;
+            if (CurrentDamage < 1)
+            {
+                CurrentDamage = 1;
+            }
+            playerInfo.CurrentHealth.Value -= CurrentDamage;
             Debug.Log($"currentHealth: {playerInfo.CurrentHealth.Value}");
         }
     }

@@ -10,7 +10,7 @@ namespace MrX.EndlessSurvivor
         public PlayerInfo playerInfo;               // Kéo Player vào đây
         [SerializeField] private TextMeshProUGUI valueDamage;      // Text hiển thị %
         [SerializeField] private TextMeshProUGUI valueHealth;      // Text hiển thị %
-        [SerializeField] private TextMeshProUGUI valueSpeed;      // Text hiển thị %
+        [SerializeField] private TextMeshProUGUI valueDef;      // Text hiển thị %
 
         // [SerializeField] private CanvasGroup canvasGroup;
 
@@ -33,11 +33,11 @@ namespace MrX.EndlessSurvivor
                 })
                 .AddTo(this);
             // Lắng nghe sự thay đổi của Level từ Player
-            playerInfo.CurrentSpeed
+            playerInfo.CurrentDef
                 .Subscribe(value => // Đổi tên thành newDamageValue cho rõ nghĩa
                 {
                     // Sử dụng đúng tên biến đã khai báo ở trên
-                    valueSpeed.text = value.ToString();
+                    valueDef.text = value.ToString();
                 })
                 .AddTo(this);
         }

@@ -34,6 +34,11 @@ namespace MrX.EndlessSurvivor
                     playerInfo.CurrentHealth.Value += chosenUpgrade.value;
                     Debug.Log("Đã tăng Max Health thêm: " + chosenUpgrade.value);
                     break;
+                case UpgradeType.Def:
+                    // Truy cập đến PlayerHealth và cộng thêm
+                    playerInfo.CurrentDef.Value += (int)chosenUpgrade.value;
+                    Debug.Log("Đã tăng Max Def thêm: " + chosenUpgrade.value);
+                    break;
 
                 case UpgradeType.MoveSpeed:
                     // Truy cập đến PlayerHealth và cộng thêm

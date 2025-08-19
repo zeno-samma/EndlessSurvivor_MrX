@@ -11,6 +11,7 @@ namespace MrX.EndlessSurvivor
         // Dữ liệu động của người chơi
         private float damageLevel;
         private int healthLevel;
+        private int defLevel;
         private float speedLevel;
         private float cooldownLevel;
         private int currentGold;
@@ -18,11 +19,13 @@ namespace MrX.EndlessSurvivor
         // --- Các thuộc tính (Properties) để tính toán chỉ số cuối cùng ---
         public float MaxDamage => playerConfig.initialDamage + (playerConfig.damageBonusPerLevel * damageLevel);
         public float MaxHealth => playerConfig.initialHealth + (playerConfig.healthBonusPerLevel * healthLevel);
+        public int MaxDef => playerConfig.initialDef + (playerConfig.defBonusPerLevel * defLevel);
         public float MaxSpeed => playerConfig.initialMoveSpeed + (playerConfig.speedBonusPerLevel * speedLevel);
         public float MaxCooldown => playerConfig.initialCooldown - (playerConfig.cooldownReductionPerLevel * cooldownLevel);
 
         public ReactiveProperty<float> CurrentDamage { get; private set; } = new ReactiveProperty<float>(0f);
         public ReactiveProperty<float> CurrentHealth { get; private set; } = new ReactiveProperty<float>(1f);
+        public ReactiveProperty<int> CurrentDef { get; private set; } = new ReactiveProperty<int>(10);
         public ReactiveProperty<float> CurrentSpeed { get; private set; } = new ReactiveProperty<float>(0f);
         public ReactiveProperty<float> CurrentCooldown { get; private set; } = new ReactiveProperty<float>(100f);
         // Hàm này sẽ được GameManager gọi khi load game xong
@@ -30,9 +33,10 @@ namespace MrX.EndlessSurvivor
         {
             CurrentDamage.Value = MaxDamage;
             CurrentHealth.Value = MaxHealth;
+            CurrentDef.Value = MaxDef;
             CurrentSpeed.Value = MaxSpeed;
             CurrentCooldown.Value = MaxCooldown;
-            Debug.Log($"MaxDamage: {CurrentDamage.Value}, MaxHealth: {CurrentHealth.Value}, MaxSpeed: {CurrentSpeed.Value}, MaxCooldown: {CurrentCooldown.Value}");
+            Debug.Log($"MaxDamage: {CurrentDamage.Value}, MaxHealth: {CurrentHealth.Value}, MaxDef: {CurrentDef.Value}, MaxSpeed: {CurrentSpeed.Value}, MaxCooldown: {CurrentCooldown.Value}");
         }
         public void ApplyLoadedData(PlayerData data)
         {
