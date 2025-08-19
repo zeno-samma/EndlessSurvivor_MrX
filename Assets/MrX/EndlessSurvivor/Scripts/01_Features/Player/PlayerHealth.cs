@@ -3,10 +3,12 @@ using UniRx;
 
 namespace MrX.EndlessSurvivor
 {
+    [RequireComponent(typeof(PlayerHealth))]
     public class PlayerHealth : MonoBehaviour, IDamageable
     {
         // === DỮ LIỆU ===
-        public PlayerInfo playerInfo;
+        [SerializeField]private PlayerInfo playerInfo;
+
         public void TakeDamage(float damage)//Player nhận sát thương từ enemy
         {
             // Đảm bảo máu không âm
