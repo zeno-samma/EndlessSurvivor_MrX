@@ -208,6 +208,8 @@ GameObject:
   - component: {fileID: 1292440340316557360}
   - component: {fileID: 390791949414692183}
   - component: {fileID: 7622826597653684530}
+  - component: {fileID: 324485054809120052}
+  - component: {fileID: 4232877447234054571}
   - component: {fileID: 243934594299694879}
   m_Layer: 6
   m_Name: Spaceships_01
@@ -390,6 +392,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f51ce35b1a00748a453ac9d3419686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &324485054809120052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5986085233292536117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b449e1731ee2ce488aaa27d3cfe919a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: b45b2f2a7774dd4469c45f3c88e87bbd, type: 2}
+--- !u!114 &4232877447234054571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5986085233292536117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f495d31a0c24ba49bea68258e5976c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInfo: {fileID: 324485054809120052}
 --- !u!58 &243934594299694879
 CircleCollider2D:
   m_ObjectHideFlags: 0

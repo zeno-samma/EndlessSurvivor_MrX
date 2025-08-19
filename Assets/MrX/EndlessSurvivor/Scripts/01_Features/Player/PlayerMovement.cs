@@ -5,7 +5,7 @@ namespace MrX.EndlessSurvivor
     [RequireComponent(typeof(Rigidbody2D))] // Đảm bảo đối tượng luôn có Rigidbody2D
     public class PlayerMovement : MonoBehaviour
     {
-        public PlayerConfigSO playerConfig; // Biến để chứa file config của người chơi
+        public PlayerInfo playerInfo; // Biến để chứa file config của người chơi
         public Joystick joystick; // << THÊM DÒNG NÀY
         private Rigidbody2D rb; // Để xử lý vật lý
         Vector2 moveInput;
@@ -35,7 +35,7 @@ namespace MrX.EndlessSurvivor
         }
         void FixedUpdate()
         {
-            rb.linearVelocity = moveInput * playerConfig.initialMoveSpeed;
+            rb.linearVelocity = moveInput * playerInfo.CurrentSpeed.Value;
         }
     }
 }

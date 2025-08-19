@@ -8,15 +8,16 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private float desableDelay = 2f;
         private float timelast;
         private Vector3 moveDirection;
+        public float currentDamageWP;
 
         // Một hàm public để WeaponController có thể "ra lệnh"
-        public void SetDirection(Vector3 newDirection)
+        public void SetDirection(Vector3 newDirection, float currentDamage)
         {
+            currentDamageWP = currentDamage;
             moveDirection = newDirection;
             float angle = Mathf.Atan2(newDirection.y, newDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle); // Giả sử sprite của bạn hướng lên
         }
-
         // Update is called once per frame
         void Update()
         {
@@ -45,7 +46,7 @@ namespace MrX.EndlessSurvivor
                 if (enemy != null)
                 {
                     // 4. Gọi thẳng hàm TakeDamage của chính con enemy đó
-                    enemy.Health.TakeDamageEnemy(10);
+                    enemy.Health.TakeDamageEnemy((int)currentDamageWP);
                 }
                 gameObject.SetActive(false);
             }

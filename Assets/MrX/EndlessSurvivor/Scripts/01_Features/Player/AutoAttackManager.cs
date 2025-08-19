@@ -13,13 +13,14 @@ namespace MrX.EndlessSurvivor
 
         // Tham chiếu đến các bộ phận khác của Player
         private WeaponManager weaponManager;
+        public PlayerInfo playerInfo; // Tham chiếu đến script Aim
         // private WeaponAim weaponAim; // Giả sử bạn có script này để xoay vũ khí
 
         void Awake()
         {
             // Lấy các component cần thiết
             weaponManager = GetComponentInChildren<WeaponManager>();
-            // weaponAim = GetComponentInChildren<WeaponAim>();
+            playerInfo = GetComponent<PlayerInfo>();
         }
 
         void Update()
@@ -46,7 +47,7 @@ namespace MrX.EndlessSurvivor
                 transform.rotation = Quaternion.Euler(0, 0, angle - 90f); // Giả sử sprite của bạn hướng lên
                 // Ra lệnh cho các bộ phận khác hành động
                 // weaponAim.AimAt(currentTarget);
-                weaponManager.Shoot(direction);
+                weaponManager.Shoot(direction, playerInfo.CurrentDamage.Value);
                 // Debug.Log("Tấn công");
             }
             else if (currentTarget == null)

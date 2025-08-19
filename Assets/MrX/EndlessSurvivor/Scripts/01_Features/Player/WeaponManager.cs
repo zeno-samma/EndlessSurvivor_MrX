@@ -12,13 +12,11 @@ namespace MrX.EndlessSurvivor
         [SerializeField] private Transform firePos;
         [SerializeField] private float shotDelay = 0.15f;
         [SerializeField] private int maxAmo = 24;
-        private PlayerAim playerAim; // Tham chiếu đến script Aim
         public int currentAmo;
         private float nextShot;
         void Awake()
         {
             // Lấy tham chiếu đến script cha
-            playerAim = GetComponentInParent<PlayerAim>();
         }
         void Start()
         {
@@ -33,7 +31,7 @@ namespace MrX.EndlessSurvivor
         {
             // Reload();
         }
-        public void Shoot(UnityEngine.Vector3 currentTarget)
+        public void Shoot(UnityEngine.Vector3 currentTarget, float currentDamage)
         {
             // Đọc hướng trực tiếp, không cần tính toán lại
             // Vector3 shootDirection = playerAim.AimDirection;
@@ -45,7 +43,7 @@ namespace MrX.EndlessSurvivor
                 GameObject bulletObj = PoolManager.Ins.GetFromPool("PlayerBullet", firePos.position);
                 Bullet bulletScript = bulletObj.GetComponent<Bullet>();
                 // 4. "Ra lệnh" cho viên đạn bay theo hướng đã tính
-                bulletScript.SetDirection(currentTarget);
+                bulletScript.SetDirection(currentTarget, currentDamage);
                 currentAmo--;
             }
         }

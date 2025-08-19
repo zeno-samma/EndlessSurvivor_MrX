@@ -12,7 +12,8 @@ namespace MrX.EndlessSurvivor
         public static GameManager Ins;
         [SerializeField] private int currentScore;
         private PlayerData loadedPlayerData;
-        [SerializeField] private PlayerHealth playerHealth; // Kéo đối tượng Hero trong Scene vào đây
+        [SerializeField] private PlayerInfo playerInfo; // Kéo đối tượng Hero trong Scene vào đây
+        
         private string saveFilePath;
         private bool isDataDirty = false; // << "CỜ BẨN"
         public GameState CurrentState { get; private set; }
@@ -48,12 +49,12 @@ namespace MrX.EndlessSurvivor
         private void OnPlayerSpawned(PlayerSpawnedEvent value)
         {
             // Nhận Transform từ sự kiện và lưu lại
-            this.playerHealth = value.playerObject.GetComponent<PlayerHealth>();
-            Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
-            if (playerHealth != null && loadedPlayerData != null)
+            this.playerInfo = value.playerObject.GetComponent<PlayerInfo>();
+            // Debug.Log("GameManager đã nhận được tham chiếu đến PlayerHealth thành công!");
+            if (playerInfo != null && loadedPlayerData != null)
             {
                 Debug.Log("Ok");
-                this.playerHealth.ApplyLoadedData(loadedPlayerData);
+                this.playerInfo.ApplyLoadedData(loadedPlayerData);
             }
         }
 
@@ -132,7 +133,7 @@ namespace MrX.EndlessSurvivor
             // Chỉ thực hiện lưu nếu có thay đổi
             if (!isDataDirty) return;
             Debug.Log("Data was dirty, SAVING GAME...");
-            PlayerData dataToSave = playerHealth.GetDataToSave();
+            PlayerData dataToSave = playerInfo.GetDataToSave();
             dataToSave.version = Application.version; // << LƯU PHIÊN BẢN HIỆN TẠI
             dataToSave.gold = currentScore;
 
@@ -169,7 +170,7 @@ namespace MrX.EndlessSurvivor
             {
                 // Không có file save, tạo dữ liệu mới
                 Debug.Log("Không tìm thấy tệp lưu, đang tạo dữ liệu mới.");
-                playerHealth.ApplyLoadedData(new PlayerData());
+                playerInfo.ApplyLoadedData(new PlayerData());
                 ResetAndCreateNewData();
             }
         }

@@ -8,23 +8,15 @@ namespace MrX.EndlessSurvivor
     public class PlayerHealthUI : MonoBehaviour
     {
         private Image healthBarImage;
-        private PlayerHealth playerHealth; // Tham chiếu đến script quản lý máu
+        public PlayerInfo playerInfo;
         void Awake()
         {
             healthBarImage = GetComponent<Image>();
+            playerInfo = GetComponentInParent<PlayerInfo>();
         }
         void Start()
         {
-            // Tìm đến component PlayerHealth (giả sử nó nằm trên đối tượng cha hoặc cùng cấp)
-            playerHealth = GetComponentInParent<PlayerHealth>();
-
-            // Nếu không tìm thấy, có thể dùng Player.Instance nếu bạn có
-            // if (playerHealth == null && Player.Instance != null)
-            // {
-            //     playerHealth = Player.Instance.Health;
-            // }
-
-            if (playerHealth == null)
+            if (playerInfo == null)
             {
                 Debug.LogError("Không tìm thấy PlayerHealth component!");
                 return;
@@ -32,12 +24,12 @@ namespace MrX.EndlessSurvivor
 
             // === ĐÂY LÀ PHẦN MA THUẬT CỦA UNIRX ===
             // Lắng nghe dòng chảy CurrentHealth
-            playerHealth.CurrentHealth
+            playerInfo.CurrentHealth
                 .Subscribe(newHealthValue =>
                 {
                     // Mỗi khi CurrentHealth.Value thay đổi, code bên trong này sẽ tự động chạy
                     // Tính toán tỉ lệ máu
-                    float fillPercentage = newHealthValue / playerHealth.MaxHealth;
+                    float fillPercentage = newHealthValue / playerInfo.MaxHealth;
 
                     // Cập nhật thanh máu
                     healthBarImage.fillAmount = fillPercentage;

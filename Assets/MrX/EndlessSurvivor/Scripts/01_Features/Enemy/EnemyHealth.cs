@@ -71,6 +71,7 @@ namespace MrX.EndlessSurvivor
         }
         private IEnumerator TakeDamage(IDamageable TargetToDamage) // Gây sát thương cho người chơi
         {
+            
             while (true) // Dùng vòng lặp để gây sát thương liên tục
             {
                 if (TargetToDamage != null)
@@ -110,7 +111,7 @@ namespace MrX.EndlessSurvivor
         // Phương thức nhận sát thương từ bên ngoài
         public void TakeDamageEnemy(int damage)//Nhận sát thương từ Bullet
         {
-            // Debug.Log("TakeDamage: " + damage);
+            Debug.Log($"TakeDamage: {damage}");
             if (currentHealth <= 0) return; // Nếu đã chết rồi thì không nhận thêm sát thương
             currentHealth -= damage;
             // Debug.Log("currentHealth " + currentHealth);

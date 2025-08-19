@@ -5,6 +5,8 @@ public enum UpgradeType
 {
     AttackDamage,
     MaxHealth,
+    Def,
+    MoveSpeed,
     FireRate
     // Thêm các loại khác ở đây sau này, ví dụ: MoveSpeed, PickupRadius...
 }

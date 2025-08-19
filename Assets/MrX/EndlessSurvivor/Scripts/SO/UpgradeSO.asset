@@ -23,8 +23,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: f66f1ca1102f3456d8dff43b21ad8234, type: 3}
     type: 1
     value: 10
-  - upgradeName: "Di Chuy\u1EC3n Si\xEAu T\u1ED1c"
-    description: Speed
-    icon: {fileID: 21300000, guid: 208679d2cac6545b0a4f10df8c8c8d10, type: 3}
+  - upgradeName: "Thi\u1EBFt Gi\xE1p"
+    description: Def
+    icon: {fileID: 21300000, guid: 9771daf16c6574c7b863f072bb93298a, type: 3}
     type: 2
-    value: 2
+    value: 1
