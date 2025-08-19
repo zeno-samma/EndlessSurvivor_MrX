@@ -65,7 +65,7 @@ namespace MrX.EndlessSurvivor
         // // Hàm được gọi khi người chơi nhấn vào một nút
         private void OnUpgradeSelected(UpgradeData chosenUpgrade)
         {
-            // Debug.Log($"Chọn sự kiện clic: {chosenUpgrade.upgradeName}");
+            Debug.Log($"1.Chọn sự kiện click: {chosenUpgrade.upgradeName}");
             // 4. Phát sự kiện báo cho Player biết nâng cấp nào đã được chọn
             EventBus.Publish(new UpgradeChosenEvent { selectedUpgrade = chosenUpgrade });
 

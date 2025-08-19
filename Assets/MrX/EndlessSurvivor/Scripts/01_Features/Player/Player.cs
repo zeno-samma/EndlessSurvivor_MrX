@@ -12,6 +12,7 @@ namespace MrX.EndlessSurvivor
         public PlayerMovement Movement { get; private set; }
         public PlayerHealth Health { get; private set; }
         public WeaponManager Weapon { get; private set; }
+        public PlayerInfo playerInfo { get; private set; }
         // Thay thế các biến thông thường
         public ReactiveProperty<int> CurrentLevel { get; private set; } = new ReactiveProperty<int>(1);
         public ReactiveProperty<int> CurrentXp { get; private set; } = new ReactiveProperty<int>(0);
@@ -49,6 +50,7 @@ namespace MrX.EndlessSurvivor
             // Tự động lấy các "bộ phận" của mình
             Movement = GetComponent<PlayerMovement>();
             Health = GetComponent<PlayerHealth>();
+            playerInfo = GetComponent<PlayerInfo>();
             Weapon = GetComponentInChildren<WeaponManager>(); // Ví dụ nếu Weapon là con
         }
         void Start()

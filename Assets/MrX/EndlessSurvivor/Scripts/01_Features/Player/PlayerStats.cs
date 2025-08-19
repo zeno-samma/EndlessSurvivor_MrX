@@ -6,7 +6,7 @@ namespace MrX.EndlessSurvivor
     public class PlayerStats : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-
+        public PlayerInfo playerInfo;
         private void OnEnable()
         {
             EventBus.Subscribe<UpgradeChosenEvent>(OnUpgradeChosen);
@@ -20,13 +20,12 @@ namespace MrX.EndlessSurvivor
         private void OnUpgradeChosen(UpgradeChosenEvent value)
         {
             UpgradeData chosenUpgrade = value.selectedUpgrade;
-
             // Dùng switch...case để xem người chơi đã chọn loại nâng cấp nào
             switch (chosenUpgrade.type)
             {
                 case UpgradeType.AttackDamage:
                     // Truy cập đến script quản lý sát thương và cộng thêm
-                    // Ví dụ: weapon.damage += chosenUpgrade.value;
+                    playerInfo.CurrentDamage.Value += chosenUpgrade.value;
                     Debug.Log("Đã tăng Attack Damage thêm: " + chosenUpgrade.value);
                     break;
 
