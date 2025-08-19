@@ -23,6 +23,8 @@ namespace MrX.EndlessSurvivor
         public float MaxSpeed => playerConfig.initialMoveSpeed + (playerConfig.speedBonusPerLevel * speedLevel);
         public float MaxCooldown => playerConfig.initialCooldown - (playerConfig.cooldownReductionPerLevel * cooldownLevel);
 
+
+        public ReactiveProperty<int> CurrentGold { get; private set; } = new ReactiveProperty<int>(0);
         public ReactiveProperty<float> CurrentDamage { get; private set; } = new ReactiveProperty<float>(0f);
         public ReactiveProperty<float> CurrentHealth { get; private set; } = new ReactiveProperty<float>(1f);
         public ReactiveProperty<int> CurrentDef { get; private set; } = new ReactiveProperty<int>(10);

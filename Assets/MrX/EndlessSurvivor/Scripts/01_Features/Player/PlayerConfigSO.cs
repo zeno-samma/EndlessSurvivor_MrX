@@ -5,6 +5,8 @@ namespace MrX.EndlessSurvivor
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Survivor/Player Config")]
     public class PlayerConfigSO : ScriptableObject
     {
+        
+        public int initialGold = 0;
         public float initialDamage = 10f;
         public int initialHealth = 100;
         public int initialDef = 100;

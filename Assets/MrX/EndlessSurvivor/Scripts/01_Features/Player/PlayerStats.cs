@@ -10,11 +10,18 @@ namespace MrX.EndlessSurvivor
         private void OnEnable()
         {
             EventBus.Subscribe<UpgradeChosenEvent>(OnUpgradeChosen);
+            EventBus.Subscribe<EnemyDiedEvent>(OnEnemyDied);
         }
 
         private void OnDisable()
         {
             EventBus.Unsubscribe<UpgradeChosenEvent>(OnUpgradeChosen);
+            EventBus.Unsubscribe<EnemyDiedEvent>(OnEnemyDied);
+        }
+
+        private void OnEnemyDied(EnemyDiedEvent value)
+        {
+            playerInfo.CurrentGold.Value += value.diecoin;
         }
 
         private void OnUpgradeChosen(UpgradeChosenEvent value)

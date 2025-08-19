@@ -207,8 +207,8 @@ MonoBehaviour:
   healthBarFill: {fileID: 3722715166943225521}
   maxHealth: 100
   currentHealth: 0
-  minCoinBonus: 0
-  maxCoinBonus: 0
+  minCoinBonus: 1
+  maxCoinBonus: 5
 --- !u!114 &4147312306200073388
 MonoBehaviour:
   m_ObjectHideFlags: 0
