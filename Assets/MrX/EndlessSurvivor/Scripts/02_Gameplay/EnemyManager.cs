@@ -11,7 +11,7 @@ namespace MrX.EndlessSurvivor
 
         // Thuộc tính để WaveSpawner có thể kiểm tra xem còn bao nhiêu địch
         public int ActiveEnemyCount => activeEnemies.Count;
-        [SerializeField] private Transform playerTransform; // Kéo đối tượng Player vào đây
+        // [SerializeField] private Transform playerTransform; // Kéo đối tượng Player vào đây
         void Awake()
         {
             // Singleton Pattern
@@ -53,7 +53,7 @@ namespace MrX.EndlessSurvivor
         private void OnPlayerSpawned(PlayerSpawnedEvent value)
         {
             // Nhận Transform từ sự kiện và lưu lại
-            playerTransform = value.playerObject.transform;
+            // playerTransform = value.playerObject.transform;
             // Debug.Log("EnemyManager đã nhận được vị trí của Player!");
         }
 

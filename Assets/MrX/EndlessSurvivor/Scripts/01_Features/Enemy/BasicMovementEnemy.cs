@@ -5,13 +5,13 @@ namespace MrX.EndlessSurvivor
     public class BasicMovementEnemy : BaseEnemy
     {
         [Header("Ranged Specific Stats")]
-        [SerializeField] private float stoppingDistance = 5f; // Khoảng cách sẽ dừng lại để bắn
-        [SerializeField] private float fireRate = 2f; // Tần suất bắn (giây/viên)
+        // [SerializeField] private float stoppingDistance = 5f; // Khoảng cách sẽ dừng lại để bắn
+        // [SerializeField] private float fireRate = 2f; // Tần suất bắn (giây/viên)
         [SerializeField] private GameObject projectilePrefab; // Prefab của viên đạn
 
         // private float fireTimer; // Bộ đếm thời gian để bắn
-        [Header("AI Behavior")]
-        [SerializeField] private float timeBetweenDecisions = 2f; // Cứ mỗi 2 giây sẽ ra quyết định mới
+        // [Header("AI Behavior")]
+        // [SerializeField] private float timeBetweenDecisions = 2f; // Cứ mỗi 2 giây sẽ ra quyết định mới
         // Override: Viết đè lên phương thức của lớp cha (BaseEnemy)
         protected override void Move()
         {
