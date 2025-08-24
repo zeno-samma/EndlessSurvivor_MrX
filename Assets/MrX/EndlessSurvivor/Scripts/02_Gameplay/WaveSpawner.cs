@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -6,10 +7,17 @@ namespace MrX.EndlessSurvivor
 {
     public class WaveSpawner : MonoBehaviour
     {
+        [Header("Stage & Spawn Configuration")]
+        [Tooltip("Kéo file ScriptableObject chứa kịch bản của cả màn chơi vào đây.")]
+        [SerializeField] private StageDataSO currentStageData;
+
+        [Tooltip("Danh sách các điểm có thể spawn kẻ địch.")]
         [SerializeField] private Transform[] spawnPoints;
-        [SerializeField] private int m_CD_Nextwave = 5;
+        [Tooltip("Thời gian đếm ngược chờ giữa các wave.")]
+        [SerializeField] private float countdownBetweenWaves = 5f;
+        // [SerializeField] private int m_CD_Nextwave = 5;
         // Thêm biến tổng số wave
-        [SerializeField] private int totalWavesInStage = 20;
+        [SerializeField] public int TotalWavesInStage = 20;
         // public int CurrentWave { get; private set; }
         // public int enemyCount;// Dùng UniRx để tự động thông báo cho UI
         public ReactiveProperty<int> CurrentWaveNumber { get; private set; } = new ReactiveProperty<int>(0);
@@ -27,66 +35,40 @@ namespace MrX.EndlessSurvivor
         {
 
             // Đăng ký lắng nghe sự thay đổi trạng thái từ GameManager
-            EventBus.Subscribe<StateUpdatedEvent>(SpawnEnemiesState);//Lắng nghe trạng thái game do gamemanager quản lý
-            EventBus.Subscribe<EnemySpawnedEvent>(OnEnemySpawned);//Lắng nghe trạng thái game do gamemanager quản lý
+            EventBus.Subscribe<StateUpdatedEvent>(OnGameStateChanged);//Lắng nghe trạng thái game do gamemanager quản lý
+            // EventBus.Subscribe<EnemySpawnedEvent>(OnEnemySpawned);//Lắng nghe trạng thái game do gamemanager quản lý
             EventBus.Subscribe<EnemyDiedEvent>(OnEnemyDied); // << THÊM DÒNG NÀY
         }
 
         private void OnDisable()
         {
-            EventBus.Unsubscribe<StateUpdatedEvent>(SpawnEnemiesState);
-            EventBus.Unsubscribe<EnemySpawnedEvent>(OnEnemySpawned);
+            EventBus.Unsubscribe<StateUpdatedEvent>(OnGameStateChanged);
+            // EventBus.Unsubscribe<EnemySpawnedEvent>(OnEnemySpawned);
             EventBus.Unsubscribe<EnemyDiedEvent>(OnEnemyDied); // << THÊM DÒNG NÀY
         }
 
         private void OnEnemyDied(EnemyDiedEvent value)
         {
-            // Debug.Log($"EnemiesKilledThisWave: {EnemiesKilledThisWave.Value}");
-            EnemiesKilledThisWave.Value++; // Tăng biến đếm khi có enemy chết
-            EnemyPoint.Value = EnemiesKilledThisWave.Value * 0.2f;
-            // Debug.Log($"EnemyPoint: {EnemyPoint.Value}");
+            if (m_state == SpawnState.WAITING || m_state == SpawnState.SPAWNING)
+            {
+                // Debug.Log($"EnemiesKilledThisWave: {EnemiesKilledThisWave.Value}");
+                EnemiesKilledThisWave.Value++; // Tăng biến đếm khi có enemy chết
+                EnemyPoint.Value = EnemiesKilledThisWave.Value * 0.2f;
+                // Debug.Log($"EnemyPoint: {EnemyPoint.Value}");
+            }
         }
-
+        #region Unity Lifecycle & Event Subscription
         void Start()
         {
+            if (currentStageData == null)
+            {
+                Debug.LogError("CHƯA GÁN StageDataSO CHO WAVESPAWNER!", this);
+                this.enabled = false; // Vô hiệu hóa script này nếu thiếu file config
+                return;
+            }
             m_state = SpawnState.COUNTING_DOWN;
+            SetupUniRxSubscriptions();
             StartNextWave();
-            // Dùng UniRx để lắng nghe sự thay đổi của chính nó
-            Observable.CombineLatest(
-                    EnemiesKilledThisWave,
-                    TotalEnemiesInWave,
-                    CurrentWaveNumber,
-                    (killed, total, waveNum) => // "Công thức trộn" mới
-                    {
-                        if (total <= 0 || totalWavesInStage <= 0) return 0f;
-                        // ====================================Hệ thống cũ
-                        // 1. Tính tiến trình của các wave đã hoàn thành
-                        // Ví dụ: đang ở wave 3 -> (3-1)/5 = 0.4 (40%)
-                        // float progressOfPreviousWaves = (float)(waveNum - 1) / totalWavesInStage;
-
-                        // 2. Tính tiến trình nhỏ của wave hiện tại
-                        // Ví dụ: giết 2/10 quái ở wave 3 -> (2/10) * (1/5) = 0.04 (4%)
-                        // float progressOfCurrentWave = ((float)killed / total) / totalWavesInStage;
-
-                        // 3. Cộng dồn lại
-                        // return progressOfPreviousWaves + progressOfCurrentWave;
-                        // =====================Hệ thống mới
-            
-                        // 2. Tính tiến trình nhỏ của wave hiện tại
-                        // Ví dụ: giết 2/10 quái ở wave 3 -> (2/10) * (1/5) = 0.04 (4%)
-                        // float progressOfCurrentWave = ((float)killed / total) / totalWavesInStage;
-                        float progressOfCurrentWave = ((float)killed / total);
-
-                        // 3. Cộng dồn lại
-                        // return progressOfPreviousWaves + progressOfCurrentWave;
-                        return progressOfCurrentWave;
-                    })
-                    .Subscribe(overallProgress =>
-                    {
-                        // Phát đi sự kiện chứa tiến trình tổng
-                        EventBus.Publish(new WaveProgressUpdatedEvent { progressPercentage = overallProgress, currentWaveNumber = CurrentWaveNumber.Value});
-                    })
-                    .AddTo(this);
         }
         void Update()
         {
@@ -109,258 +91,151 @@ namespace MrX.EndlessSurvivor
             }
 
         }
-        private void SpawnEnemiesState(StateUpdatedEvent Value)
-        {
-            if (Value.CurState == GameState.GAMEOVER)
-            {
-                // Debug.Log("Vào đây");
-                StopAllCoroutines();
-                Time.timeScale = 0f;
-            }
-        }
-        private void OnEnemySpawned(EnemySpawnedEvent Value)
-        {
-            Debug.Log("GameStart...!");
-            StartNextWave();
+        #endregion
+        #region Core Spawning Logic
 
-        }
-        // Hàm được gọi khi wave được xác nhận là đã sạch
-        void WaveCompleted()
-        {
-            Debug.Log("Wave " + CurrentWaveNumber.Value + " đã hoàn thành!");
-            // EventBus.Publish(new CountdownNextWave {cooldownDuration = m_CD_Nextwave});
-            // Chuyển sang trạng thái đếm ngược cho wave tiếp theo
-            m_state = SpawnState.COUNTING_DOWN;
-            // Bắt đầu bộ đếm ngược (ví dụ, gọi hệ thống CountdownTimer đã thiết kế)
-            StartNewCountdown(m_CD_Nextwave);
-        }
-        private void StartNewCountdown(float duration)////duration thời gian cd mỗi wave enemy
-        {
-            StartCoroutine(CountdownCoroutine(duration));
-        }
-        private IEnumerator CountdownCoroutine(float duration)
-        {
-            float timer = duration;
-
-            // Bắt đầu vòng lặp đếm ngược
-            while (timer > 0)
-            {
-                // Giảm thời gian
-                // Debug.Log($"CurrentTime: {timer}");
-                MessageBroker.Default.Publish(new WaveCountdownTickMessage { RemainingTime = timer });
-                timer -= Time.deltaTime;
-                yield return null;
-            }
-
-            // Phát event báo hiệu đã hoàn thành
-            // Debug.Log("Countdown Finished!");
-            StartNextWave();
-            yield break; // Kết thúc coroutine cho wave này
-        }
         public void StartNextWave()
         {
+            // Lấy index của wave hiện tại (CurrentWaveNumber bắt đầu từ 1, index list bắt đầu từ 0)
+            int waveIndex = CurrentWaveNumber.Value;
+
+            if (waveIndex >= TotalWavesInStage)
+            {
+                Debug.Log("🎉 ĐÃ HOÀN THÀNH TẤT CẢ CÁC WAVE! Xử lý logic chiến thắng tại đây.");
+                // TODO: Thêm logic chiến thắng
+                return;
+            }
+
+            // Chuyển sang wave tiếp theo
             CurrentWaveNumber.Value++;
 
-            Debug.Log("Chuẩn bị cho Wave: " + CurrentWaveNumber.Value);
+            // Lấy dữ liệu của wave từ ScriptableObject
+            WaveData waveToSpawn = currentStageData.waves[waveIndex];
 
-            // DÙNG SWITCH...CASE ĐỂ QUYẾT ĐỊNH LOGIC CHO TỪNG WAVE
-            switch (CurrentWaveNumber.Value)
-            {
-                case 1:
-                    // --- Điều kiện cho Wave 1 ---"Làm Quen Vũ Khí"
-                    Debug.Log("Kịch bản Wave 1: 3 x Lính Thí Mạng (Cấp 1)."); //cách nhau 4s
-                    StartCoroutine(SpawnMixedWave_01());//count, level,Delaytime
-                    m_state = SpawnState.SPAWNING;
-                    break;
-                case 2:
-                    // --- Điều kiện cho Wave 2 ---"Sức Mạnh Của Đánh Xuyên"Chia làm 2 cụm, mỗi cụm 3 con đi sát nhau. Thời gian nghỉ giữa 2 cụm là 3 giây.
-                    Debug.Log("Kịch bản Wave 2: 4 x Lính Thí Mạng (Cấp 1)."); //cách nhau 2.5s
-                    StartCoroutine(SpawnMixedWave_02()); // Gọi một coroutine có kịch bản phức tạp hơn
-                    m_state = SpawnState.SPAWNING;
-                    break;
+            // Reset các biến đếm cho wave mới
+            EnemiesKilledThisWave.Value = 0;
+            TotalEnemiesInWave.Value = waveToSpawn.GetTotalEnemiesInWave();
 
-                case 3:
-                    // --- Điều kiện cho Wave 3 ---"Thử Thách Bức Tường Thịt"2 Thiết Giáp xuất hiện trước. Sau 2 giây, 3 Sát Thủ xuất hiện ngay phía sau và di chuyển cùng tốc độ.
-                    Debug.Log("Kịch bản Wave 3: 2 x Kẻ Cản Trở (Cấp 2) và 2 x Lính Thí Mạng (Cấp 3).");
-                    StartCoroutine(SpawnMixedWave_03()); // Gọi một coroutine có kịch bản phức tạp hơn
-                    m_state = SpawnState.SPAWNING;
-                    break;
-
-                case 4:
-                    // --- Điều kiện cho Wave 4 ---
-                    Debug.Log("Kịch bản Wave 4: 1 x Mini-Boss, 1 x Kẻ Cản Trở (Cấp 2), 4 x Kẻ Rỉa Máu (Cấp 3).!");
-                    StartCoroutine(SpawnMixedWave_04()); // Gọi một coroutine có kịch bản phức tạp hơn
-                    m_state = SpawnState.SPAWNING;
-                    break;
-
-                case 5:
-                    // --- Điều kiện cho Wave 4 ---
-                    Debug.Log("Kịch bản Wave 4: 1 x Mini-Boss!");
-                    StartCoroutine(SpawnMixedWave_05()); // Gọi một coroutine có kịch bản phức tạp hơn
-                    m_state = SpawnState.SPAWNING;
-                    break;
-
-                default:
-                    Debug.Log("Kịch bản Wave " + CurrentWaveNumber.Value + ": Thử thách tăng dần!");
-                    break;
-            }
+            // Bắt đầu coroutine để spawn quái
+            StartCoroutine(SpawnWaveCoroutine(waveToSpawn));
         }
 
-        private IEnumerator SpawnMixedWave_05()
+        private IEnumerator SpawnWaveCoroutine(WaveData waveData)
         {
             m_state = SpawnState.SPAWNING;
-            EnemiesKilledThisWave.Value = 0;
+            Debug.Log($"Bắt đầu Wave {CurrentWaveNumber.Value}: '{waveData.waveName}' với {TotalEnemiesInWave.Value} kẻ địch.");
 
-            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
-            int totalEnemies = 1; // GiantSlimeBlue(5) + GiantSpirit(2)
-            TotalEnemiesInWave.Value = totalEnemies;
-            // --- Đợt 1: Spawn 1 GiantSpirit ---
-            for (int i = 0; i < 1; i++)
+            // Vòng lặp chính: duyệt qua từng nhóm quái được định nghĩa trong wave
+            foreach (var group in waveData.enemyGroups)
             {
-                SpawnAndRegister("GiantBamboo");
-                yield return new WaitForSeconds(1f);
+                // Chờ trước khi bắt đầu nhóm mới (nếu có)
+                if (group.delayBeforeSpawningGroup > 0)
+                {
+                    yield return new WaitForSeconds(group.delayBeforeSpawningGroup);
+                }
+
+                // Vòng lặp phụ: spawn từng con quái trong nhóm
+                for (int i = 0; i < group.count; i++)
+                {
+                    SpawnAndRegister(group.enemyName);
+
+                    // Chờ giữa mỗi lần spawn (nếu có)
+                    if (group.spawnInterval > 0)
+                    {
+                        yield return new WaitForSeconds(group.spawnInterval);
+                    }
+                }
             }
+
+            // Sau khi spawn hết tất cả các nhóm, chuyển sang trạng thái chờ
             m_state = SpawnState.WAITING;
-            Debug.Log("Đã spawn xong wave 5, đang chờ người chơi dọn dẹp...");
-        } 
+            Debug.Log("Đã spawn xong. Chuyển sang trạng thái chờ người chơi dọn dẹp...");
+        }
 
         private void SpawnAndRegister(string enemyName)
         {
+            if (spawnPoints.Length == 0) return;
+
             int randomIndex = Random.Range(0, spawnPoints.Length);
             Transform randomSpawnPoint = spawnPoints[randomIndex];
+
             GameObject enemyObj = PoolManager.Ins.GetFromPool(enemyName, randomSpawnPoint.position);
+            if (enemyObj == null)
+            {
+                Debug.LogWarning($"Không tìm thấy enemy có tên '{enemyName}' trong Pool!");
+                return;
+            }
+
             Enemy enemyScript = enemyObj.GetComponent<Enemy>();
             if (enemyScript != null)
             {
                 EnemyManager.Ins.RegisterEnemy(enemyScript);
             }
         }
-        // private IEnumerator SpawnEnemies(string name, int count, float spawnInterval)
-        // {
-        //     m_state = SpawnState.SPAWNING;
-        //     EnemiesKilledThisWave.Value = 0;
-        //     TotalEnemiesInWave.Value = count;
-        //     for (int i = 0; i < count; i++)
-        //     {
-        //         // Lấy một chỉ số ngẫu nhiên từ 0 đến số lượng điểm spawn
-        //         int randomIndex = Random.Range(0, spawnPoints.Length);
 
-        //         // Lấy Transform của điểm spawn ngẫu nhiên đó
-        //         Transform randomSpawnPoint = spawnPoints[randomIndex];
-        //         // Lấy object từ pool và lưu nó vào một biến
-        //         GameObject enemyObj = PoolManager.Ins.GetFromPool(name, randomSpawnPoint.position);
-        //         // Lấy script Enemy từ object đó
-        //         Enemy enemyScript = enemyObj.GetComponent<Enemy>();
-        //         // Đăng ký lính mới với Manager
-        //         if (enemyScript != null)
-        //         {
-        //             EnemyManager.Ins.RegisterEnemy(enemyScript);
-        //         }
-        //         // Debug.Log("Spawn");
-        //         yield return new WaitForSeconds(spawnInterval);
-        //     }
-        //     m_state = SpawnState.WAITING;
-        //     Debug.Log("Đã spawn xong, đang chờ người chơi dọn dẹp...");
-        //     yield break; // Kết thúc coroutine cho wave này
-        // }
-        private IEnumerator SpawnMixedWave_01()
+        #endregion
+
+        #region State & Event Handling
+
+        void WaveCompleted()
         {
-            m_state = SpawnState.SPAWNING;
-            EnemiesKilledThisWave.Value = 0;
+            Debug.Log($"✅ Wave {CurrentWaveNumber.Value} đã hoàn thành!");
+            m_state = SpawnState.COUNTING_DOWN;
 
-            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
-            int totalEnemies = 5; // GiantSlimeGreen(5) + GiantFlam(2)
-            TotalEnemiesInWave.Value = totalEnemies;
+            // Bắt đầu đếm ngược cho wave tiếp theo
+            StartCoroutine(CountdownCoroutine(countdownBetweenWaves));
+        }
 
-            // --- Đợt 1: Spawn 5 GiantSlimeGreen ---
-            for (int i = 0; i < 5; i++)
-            {
-                SpawnAndRegister("GiantSlimeGreen");
-                yield return new WaitForSeconds(2.5f);
-            }
-            m_state = SpawnState.WAITING;
-            Debug.Log("Đã spawn xong wave 3, đang chờ người chơi dọn dẹp...");
-        }        // Hàm công khai để bắt đầu đếm ngược từ một script khác
-        // }
-        private IEnumerator SpawnMixedWave_02()
+        private IEnumerator CountdownCoroutine(float duration)
         {
-            m_state = SpawnState.SPAWNING;
-            EnemiesKilledThisWave.Value = 0;
-
-            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
-            int totalEnemies = 5; // GiantSlimeGreen(5) + GiantFlam(2)
-            TotalEnemiesInWave.Value = totalEnemies;
-
-            // --- Đợt 1: Spawn 5 GiantSlimeGreen ---
-            for (int i = 0; i < 3; i++)
+            Debug.Log($"Đếm ngược {duration} giây cho wave tiếp theo...");
+            float timer = duration;
+            while (timer > 0)
             {
-                SpawnAndRegister("GiantSlimeGreen");
-                yield return new WaitForSeconds(2.5f);
+                // Có thể phát đi event countdown để UI hiển thị nếu cần
+                MessageBroker.Default.Publish(new WaveCountdownTickMessage { RemainingTime = timer });
+                timer -= Time.deltaTime;
+                yield return null;
             }
 
-            // --- Đợt 2: Spawn 2 GiantFlam ---
-            for (int i = 0; i < 2; i++)
-            {
-                SpawnAndRegister("GiantFlam");
-                yield return new WaitForSeconds(1f);
-            }
+            StartNextWave();
+        }
 
-            m_state = SpawnState.WAITING;
-            Debug.Log("Đã spawn xong wave 3, đang chờ người chơi dọn dẹp...");
-        }        // Hàm công khai để bắt đầu đếm ngược từ một script khác
-        // }
-        private IEnumerator SpawnMixedWave_03()
+
+
+        private void OnGameStateChanged(StateUpdatedEvent evt)
         {
-            m_state = SpawnState.SPAWNING;
-            EnemiesKilledThisWave.Value = 0;
-
-            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
-            int totalEnemies = 5 + 2; // GiantSlimeGreen(5) + GiantFlam(2)
-            TotalEnemiesInWave.Value = totalEnemies;
-
-            // --- Đợt 1: Spawn 5 GiantSlimeGreen ---
-            for (int i = 0; i < 5; i++)
+            if (evt.CurState == GameState.GAMEOVER)
             {
-                SpawnAndRegister("GiantSlimeGreen");
-                yield return new WaitForSeconds(2.5f);
+                StopAllCoroutines();
+                this.enabled = false; // Ngừng hoạt động của spawner khi game over
+                Debug.Log("WaveSpawner đã ngừng hoạt động do GAMEOVER.");
             }
+        }
 
-            // --- Đợt 2: Spawn 2 GiantFlam ---
-            for (int i = 0; i < 2; i++)
-            {
-                SpawnAndRegister("GiantFlam");
-                yield return new WaitForSeconds(1f);
-            }
-
-            m_state = SpawnState.WAITING;
-            Debug.Log("Đã spawn xong wave 3, đang chờ người chơi dọn dẹp...");
-        }        // Hàm công khai để bắt đầu đếm ngược từ một script khác
-        private IEnumerator SpawnMixedWave_04()
+        private void SetupUniRxSubscriptions()
         {
-            m_state = SpawnState.SPAWNING;
-            EnemiesKilledThisWave.Value = 0;
+            // UniRx để theo dõi tiến trình của wave hiện tại cho UI
+            Observable.CombineLatest(
+                EnemiesKilledThisWave,
+                TotalEnemiesInWave,
+                (killed, total) =>
+                {
+                    if (total <= 0) return 0f;
+                    return (float)killed / total;
+                })
+                .Subscribe(currentProgress =>
+                {
+                    // Phát đi sự kiện chứa tiến trình của wave hiện tại
+                    EventBus.Publish(new WaveProgressUpdatedEvent
+                    {
+                        progressPercentage = currentProgress,
+                        currentWaveNumber = CurrentWaveNumber.Value
+                    });
+                })
+                .AddTo(this);
+        }
 
-            // TÍNH TOÁN VÀ ĐẶT TỔNG SỐ ENEMY CHỈ MỘT LẦN
-            int totalEnemies = 5 + 2; // GiantSlimeBlue(5) + GiantSpirit(2)
-            TotalEnemiesInWave.Value = totalEnemies;
-
-            // --- Đợt 1: Spawn 5 GiantSlimeBlue ---
-            for (int i = 0; i < 5; i++)
-            {
-                SpawnAndRegister("GiantSlimeBlue");
-                yield return new WaitForSeconds(2.5f);
-            }
-
-            // --- Đợt 2: Spawn 2 GiantSpirit ---
-            for (int i = 0; i < 2; i++)
-            {
-                SpawnAndRegister("GiantSpirit");
-                yield return new WaitForSeconds(1f);
-            }
-
-            m_state = SpawnState.WAITING;
-            Debug.Log("Đã spawn xong wave 4, đang chờ người chơi dọn dẹp...");
-        }        // Hàm công khai để bắt đầu đếm ngược từ một script khác
+        #endregion
     }
 }
-
